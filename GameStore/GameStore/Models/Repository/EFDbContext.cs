@@ -2,7 +2,7 @@
 
 namespace GameStore.Models.Repository
 {
-    public class EFDbContext
+    public class EFDbContext : DbContext
     {
         public DbSet<Game> Games { get; set; }
     }
