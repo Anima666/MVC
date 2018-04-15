@@ -46,10 +46,9 @@ namespace Game_KHB.Controllers
             return View("Index");
         }
 
-        public ActionResult Check_HMAC()
-        {
-
-            return View("Index");
-        }
+        //public ActionResult Check_HMAC()
+        //{
+        //    return View("Index");
+        //}
     }
 }

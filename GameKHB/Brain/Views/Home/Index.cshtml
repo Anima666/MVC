@@ -1,0 +1,45 @@
+﻿@{
+     ViewBag.Title = "Home Page";
+}
+
+
+<center><h1>Войдите через:</h1></center>
+
+<center>
+    @using (Html.BeginForm("VK", "Home", FormMethod.Post))
+    {
+        <div>
+            <form class="form-horizontal">
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">VK</button>
+
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    }
+
+    @using (Html.BeginForm("Twitter", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Twitter</button>
+
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("Facebook", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">Facebook</button>
+
+            </div>
+        </div>
+    }
+</center>
