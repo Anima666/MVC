@@ -9,11 +9,13 @@ namespace Game_KHB.Controllers
 {
     public class HomeController : Controller
     {
+        private GameObject game = new GameObject();
+
         public ActionResult Index()
         {
-            
+           
             ViewBag.List = ReturnList();
-            GameObject game = new GameObject();
+            
             ViewBag.HMAC = _HashEncoding._HMAC;
             return View();
         }
@@ -39,7 +41,6 @@ namespace Game_KHB.Controllers
         {
 
             ViewBag.List = ReturnList();
-            GameObject game = new GameObject();
             ViewBag.HMAC = _HashEncoding._HMAC;
             ViewBag.Result = game.GoStep(Answer);
             ViewBag.Result +="\n"+"Key:\n" + _HashEncoding.Key;

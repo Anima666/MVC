@@ -11,7 +11,7 @@ namespace GameKHB
         public GameObject()
         {
             index = rnd.Next(1, FileReader.Instance.Lines.Count);// step bot
-            _HashEncoding.Coding(index.ToString());
+            _HashEncoding.Coding(FileReader.Instance.Lines[index]);
         }
 
         public string GoStep(string _step)
@@ -20,7 +20,7 @@ namespace GameKHB
 
             List<int> ListWin = new List<int>();
             List<int> ListLose = new List<int>();
-            _HashEncoding.Coding(index.ToString());
+            //_HashEncoding.Coding(index.ToString());
             if (FileReader.Instance.Lines.Count < 3 || FileReader.Instance.Lines.Count % 2 == 0)
             {
                 return "Error count players";
