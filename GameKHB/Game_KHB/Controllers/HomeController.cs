@@ -45,10 +45,5 @@ namespace Game_KHB.Controllers
             ViewBag.Result +="\n"+"Key:\n" + _HashEncoding.Key;
             return View("Index");
         }
-
-        //public ActionResult Check_HMAC()
-        //{
-        //    return View("Index");
-        //}
     }
 }
