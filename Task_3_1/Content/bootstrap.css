@@ -94,9 +94,6 @@ hr {
        box-sizing: content-box;
 }
 
-
-
-
 mark {
   color: #000;
   background: #ff0;
@@ -565,18 +562,10 @@ h4 small,
   border-bottom: 1px solid #eeeeee;
 }
 
-#asd{
-    align-content:center;
-}
-
 ul,
 ol {
-    text-align: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    // margin-top: 0;
-    // margin-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 ul ul,
@@ -613,11 +602,6 @@ dd {
 
 dt {
   font-weight: bold;
-}
-
-esse {  
-    margin-left: 150px;
-    font-size:xx-large;
 }
 
 dd {
@@ -970,7 +954,7 @@ pre code {
     width: 33.33333333333333%;
   }
   .col-sm-5 {
-    width: 41.66666666666667%
+    width: 41.66666666666667%;
   }
   .col-sm-6 {
     width: 50%;
@@ -1074,7 +1058,6 @@ pre code {
   .col-sm-offset-5 {
     margin-left: 41.66666666666667%;
   }
-
   .col-sm-offset-6 {
     margin-left: 50%;
   }
@@ -1771,7 +1754,6 @@ textarea.form-control {
 
 .form-group {
   margin-bottom: 15px;
-  align-content:center;
 }
 
 .radio,
@@ -6810,7 +6792,6 @@ td.visible-print {
   display: none !important;
 }
 
-.left
 @media print {
   .visible-print {
     display: block !important;
@@ -6832,5 +6813,4 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
-    
 }

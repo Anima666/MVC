@@ -16,8 +16,9 @@ namespace GameKHB
 
         public string GoStep(string _step)
         {
+            int step = FileReader.Instance.Lines.FindIndex(u=>u==_step);
             int n = (FileReader.Instance.Lines.Count - 1) / 2;
-
+            
             List<int> ListWin = new List<int>();
             List<int> ListLose = new List<int>();
             //_HashEncoding.Coding(index.ToString());
@@ -25,83 +26,46 @@ namespace GameKHB
             {
                 return "Error count players";
             }
-            int step;
-            try
-            {
-                step = Convert.ToInt32(_step);
-            }
-            catch (Exception ex)
-            {
-                return $"{ex.Message}";
-            }
+            //try
+            //{
+            //    step = Convert.ToInt32(_step);
+            //}
+            //catch (Exception ex)
+            //{
+            //    return $"{ex.Message}";
+            //}
 
             if (step <= -1)
             {
-                return "Step <= -1!";
+                return "You choice <= -1!";
             }
             else if (step > FileReader.Instance.Lines.Count)
             {
-                return $"Step > {FileReader.Instance.Lines.Count}!";
+                return $"You choice > {FileReader.Instance.Lines.Count}!";
             }
             else
             {
                 if (step <= n)
                 {
                     ListWin = WinList(ListWin, step);
-                    if (ListWin.Contains(index)) return "You win";
+                    if (ListWin.Contains(index)) return "You win, choice of a bot -> " + FileReader.Instance.Lines[index] + " ";
 
-                    else return "You lose";
+                    else return "You lose, choice of a bot -> " + FileReader.Instance.Lines[index] + " ";
                 }
-                else if (step > n)
+                else
                 {
                     ListLose = LoseList(ListLose, step);
-
-
                     if (ListLose.Contains(index))
                     {
-                        return "You lose";
+                        return "You lose, choice of a bot -> " + FileReader.Instance.Lines[index]+ " ";
                     }
 
                     else
                     {
-                        return "You win";
+                        return "You win, choice of a bot -> " + FileReader.Instance.Lines[index] + " ";
                     }
                 }
-                else
-                {
-                    return "Что-то пошло не так";
-                }
-
-
-                #region 1
-                //    bool flag = false;
-
-                //    while (flag == false)
-                //    {
-                //        try
-                //        {
-                //            if ()
-                //            {
-                //                return "Ничья";
-                //            }
-                //            else if (ListWin.Contains(step))
-                //            {
-
-                //            }
-                //            else
-                //            {
-                //                return "Победил комп";
-                //            }
-                //        }
-                //        catch (Exception ex)
-                //        {
-
-                //            return $"{ex.Message}";
-                //        }
-                //    }
-                //}
-                //return string.Empty;
-                #endregion
+               
             }
         }
 

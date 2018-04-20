@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nemiro.OAuth;
+using Nemiro.OAuth.Clients;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -42,6 +44,24 @@ namespace Brain.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Vk(string provider = "VK")
+        {
+            OAuthManager.RegisterClient(
+            new VkontakteClient(
+            "",
+            "")
+            );
+
+            string returnUrl = Url.Action("ExternalLoginResult", "Home", null, null, Request.Url.Host);
+            return Redirect(OAuthWeb.GetAuthorizationUrl(provider, returnUrl));
+        }
+        public void ExternalLoginResult()
+        {
+            AuthorizationResult result = OAuthWeb.VerifyAuthorization();
+            UserInfo user = result.UserInfo;
+
         }
     }
 }

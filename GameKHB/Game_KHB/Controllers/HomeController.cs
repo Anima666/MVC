@@ -13,10 +13,10 @@ namespace Game_KHB.Controllers
 
         public ActionResult Index()
         {
-           
+            ViewBag.CountList = FileReader.Instance.Lines.Count;
             ViewBag.List = ReturnList();
-            
             ViewBag.HMAC = _HashEncoding._HMAC;
+            ViewBag.Key = _HashEncoding.Key;
             return View();
         }
 
@@ -34,16 +34,54 @@ namespace Game_KHB.Controllers
 
         private List<string> ReturnList()
         {
-            return FileReader.Instance.Lines;
+            List<string> ShowList = new List<string>();
+            foreach(var item in FileReader.Instance.Lines)
+            {
+                ShowList.Add(item);
+            }
+           
+            return ShowList ;
         }
 
-        public ActionResult Accord(string Answer)
-        {
 
-            ViewBag.List = ReturnList();
-            ViewBag.HMAC = _HashEncoding._HMAC;
-            ViewBag.Result = game.GoStep(Answer);
-            ViewBag.Result +="\n"+"Key:\n" + _HashEncoding.Key;
+
+
+        public ActionResult Accord(string hero,string dzen)
+        {
+            ViewBag.CountList = FileReader.Instance.Lines.Count;
+            
+            
+
+            try
+            {
+                if(dzen!=null)
+                {
+                    int index = Convert.ToInt32(dzen);
+                    var step = FileReader.Instance.Lines[index];
+                    ViewBag.List = ReturnList();
+                    ViewBag.HMAC = _HashEncoding._HMAC;
+                    ViewBag.Result = game.GoStep(step);
+                    ViewBag.Key = "Key:" + _HashEncoding.Key;
+                }
+                if (hero != null)
+                {
+                    ViewBag.List = ReturnList();
+                    ViewBag.HMAC = _HashEncoding._HMAC;
+                    ViewBag.Result = game.GoStep(hero);
+                    ViewBag.Key = "Key:" + _HashEncoding.Key;
+                }
+                else
+                {
+                    ViewBag.List = ReturnList();
+                    ViewBag.HMAC = _HashEncoding._HMAC;
+                    ViewBag.Key = "Key:" + _HashEncoding.Key;
+                }
+               
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Result = ex.Message;
+            }
             return View("Index");
         }
     }

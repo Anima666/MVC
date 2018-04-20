@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="right">
+    <script src="//ulogin.ru/js/ulogin.js"></script>
+    <div id="uLogin" data-ulogin="display=panel;theme=classic;fields=first_name,last_name;providers=vkontakte,facebook;hidden=twitter,googleplus,instagram;redirect_uri=http%3A%2F%2F;mobilebuttons=0;"></div>
+</div>
+
+<center><h1>Камень, ножницы, бумага </h1></center>>
+<script>
+    var isAdmin = confirm("Вы - администратор?");
+
+    alert(isAdmin);
+</script>
+<div class="text-center">
+    <div>
+        @if (ViewBag.HMAC != null)
+        {
+            <h4> @ViewBag.HMAC;</h4>
+        }
+        <br />
+    </div>
+
+</div>
+
+
+@using (Html.BeginForm("Accord", "Home", FormMethod.Post))
+{
+
+    <div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <div>
+                        <br />
+                        <label class="col-sm-offset-5 control-label" style="margin-left:45%">Выберите свой ход</label>
+                        <br />
+                    </div>
+                    @if (ViewBag.CountList > 8)
+                    {
+                        <div class="col-sm-offset-8 col-sm-10">
+
+                            <p>
+                                <select size="1" name="hero" style="margin-left:-27%">
+                                    @if (ViewBag.List != null)
+                                    {
+                                        foreach (var item in ViewBag.List)
+                                        {
+                                            <option>@item</option>
+                                        }
+
+                                    }
+
+                                </select>
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="col-sm-offset-5 col-sm-10">
+
+                            <p><input name="dzen" type="radio" value="0">@ViewBag.List[0]</p>
+                            <p><input name="dzen" type="radio" value="1">@ViewBag.List[1]</p>
+                            <p><input name="dzen" type="radio" value="2">@ViewBag.List[2]</p>
+                            <p><input name="dzen" type="radio" value="3">@ViewBag.List[3]</p>
+                            <p><input name="dzen" type="radio" value="4">@ViewBag.List[4]</p>
+                            <p><input name="dzen" type="radio" value="5">@ViewBag.List[5]</p>
+                            <p><input name="dzen" type="radio" value="6">@ViewBag.List[6]</p>
+
+                        </div>
+                    }
+                    <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-10 row">
+                            <br />
+
+                            <button type="submit" class="btn btn-success" style="margin-left:6%">Go</button>
+                            <br />
+                            @if (@ViewBag.Result != null)
+                            {
+                                @ViewBag.Result;
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+}
+
+<div class="form-group">
+    <button type="submit" class="btn btn-success" onclick="ShowHMAC()" style="margin-left:46%">Check key</button>
+    <div style="visibility:hidden" id="JSHmac">
+        @if (ViewBag.Key != null)
+        {
+            <br />
+            @ViewBag.Key;
+        }
+    </div>
+</div>
+
+<script src="~/Content/ShowHMAC.js"></script>
+
+@*<p><a href="pass">Check Key</a></p>*@
+
+<div>
+
+</div>

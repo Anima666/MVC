@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Task 3</title>
+  <link rel="shortcut icon" href="favicon.ico"/>
+  <style>
+
+  body {
+    background-color: khaki;
+    text-align: center;
+    font-family: Ubuntu Mono;
+  }
+
+  #title {
+    color: black;
+    font-size: 200%;
+    font-style: normal;
+    margin: 1px;
+    border: 1px;
+  }
+
+  #balls {
+    margin-top: 5px;
+  }
+
+  #myCanvas {
+    margin-top: -20px;
+  }
+
+  section.footer {
+    color: black;
+    font-family: Ubuntu Mono;
+    font-style: normal;
+    font-size: small;
+  }
+  #disclaimer {
+  	font-size: 74%;
+  	color: gray;
+  }
+
+  </style>
+</head>
+<body style="text-align: center">
+    <div>
+        <canvas id="myCanvas" width="1330" height="590" style="border:1px solid black;"></canvas>
+        <script src="constructors.js"></script>
+        <script src="script2.js"></script>
+        <script src="script.js"></script>
+    </div>
+    <div>
+        <input type="button" name="SelectColorRed" onclick="SetRedColorRed()" style="width:7%;height:60px;" id="RedButton" value="Red"/>
+        <input type="button" name="SelectColorGreen" onclick="SetRedColorGreen()" style="width:7%;height:60px;" id="GreenButton" value="Green" />
+        <input type="button" name="SelectColorBlue" onclick="SetRedColorBlue()" style="width:7%;height:60px;" id="BlueButton" value="Blue" />
+
+        <!--<input type="button" name="SelectColorRed" onclick="SetRedColorRed()" style="width:7%;height:60px;" value="Red" id="Re" />
+            <input type="button" name="SelectColorGreen" onclick="SetRedColorGreen()" style="width:7%;height:60px;" value="Green" />
+            <input type="button" name="SelectColorBlue" onclick="SetRedColorBlue()" style="width:7%;height:60px;" value="Blue"--> 
+            <input type="button" onclick="Start()" style="width:20%;height:60px;" value="Start" id="Start" />
+            <input type="button" name="PASS" onclick="PASS()" style="width:7%;height:60px;" value="PASS" />
+
+            <input type="button" name="PASS" onclick="PASS()" style="width:7%;height:60px;" value="PASS" />
+            <input type="button" name="PASS" onclick="PASS()" style="width:7%;height:60px;" value="PASS" />
+   
+    </div>
+</body>
+</html>
