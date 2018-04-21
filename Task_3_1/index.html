@@ -46,7 +46,7 @@
 <body style="text-align: center">
 
     <div class="panel top-panel">
-        <input type="button" onclick="Start()" class="startButton" value="Start" id="Start" />
+        <input type="button" onclick="Start()" class="startButton" id="Start" />
 
         <input class="open" id="top-box" type="checkbox" hidden />
 
@@ -56,16 +56,17 @@
     <div id="panel">
         <div id="hidden_panel" style="display:inline-grid">
             <div class="sizeBall">
-                <input type="button" onclick="LargeSizeBall()" value="         " id="Start" style="border-radius: 50px 50px 50px 50px;height:80px;width:160%" />
-                <input type="button" onclick="MiddleSizeBall()" value="         " id="Start" style="border-radius: 50px 50px 50px 50px;height:70px;width:140%" />
-                <input type="button" onclick="SmallSizeBall()" value="         " id="Start" style="border-radius: 50px 50px 50px 50px;height:60px;width:120%" />
+                <input type="button" onclick="LargeSizeBall()" value="         " id="LargeBall" style="border-radius: 50px 50px 50px 50px;height:80px;width:160%" />
+                <input type="button" onclick="MiddleSizeBall()" value="         " id="MiddleBall" style="border-radius: 50px 50px 50px 50px;height:70px;width:140%" />
+                <input type="button" onclick="SmallSizeBall()" value="         " id="SmallBall" style="border-radius: 50px 50px 50px 50px;height:60px;width:120%" />
             </div>
             <div class="sizeBall">
-                <input type="button" onclick="SetColorRed()" value="         " id="Start" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:red" />
-                <input type="button" onclick="SetColorGreen()" value="         " id="Start" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:green" />
-                <input type="button" onclick="SetColorBlue()" value="         " id="Start" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:blue" />
+                <input type="button" onclick="SetColorRed()" value="         " id="Re" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:red" />
+                <input type="button" onclick="SetColorGreen()" value="         " id="Green" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:green" />
+                <input type="button" onclick="SetColorBlue()" value="         " id="Blue" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:blue" />
+                <input type="button" onclick="DeleteBall()" value="         " id="Delete" class="trash" />
+
             </div>
-                <input type="button" onclick="" value="         " id="Start"  sstyle="50px;height:60px;width:130%;" />
 
         </div>
     </div>
@@ -82,7 +83,7 @@
         <input type="button" name="SelectColorBlue" onclick="SetColorBlue()" style="width:7%;height:60px;" id="BlueButton" value="Blue" />
 
 
-        <input type="button" onclick="Start()" style="width:20%;height:60px;" value="Start" id="Start" />
+        <input type="button" onclick="Start()" style="width:20%;height:60px;" value="Start" id="Start1" />
         <input type="button" name="PASS" onclick="PASS()" style="width:7%;height:60px;" value="PASS" />
 
         <input type="button" name="PASS" onclick="PASS()" style="width:7%;height:60px;" value="PASS" />

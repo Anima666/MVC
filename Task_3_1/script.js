@@ -4,28 +4,27 @@ var ctx = canvas.getContext("2d");
 
 
 var indexElement;
-
 var smallSizeBall = 30;
 var middleSizeBall = 40;
 var bigSizeBall = 50;
+
 var objArray = [];
+var walls = [];
+var arrows = [];
 
 var paused = true;
-var totalKineticEnergy = 0;
-var bumped = false;
 
 var setting = false;
 
 var CursorPositionX;
 var CursorPositionY;
 
-var indexElement = null;
-
 
 document.addEventListener("keydown", keyDownHandler);
 canvas.addEventListener("mousedown", GetLeftMouse, false);
 canvas.addEventListener("mouseup", leftDeleteMouse, false);
 canvas.addEventListener("dblclick",DblClick ,false)
+
 
 function DrawLine() {
     ctx.beginPath();
@@ -39,9 +38,7 @@ function DrawLine() {
 }
 
 function DblClick() {
-    if (indexElement >= 0) {
-        DrawLine();
-    }
+    DrawLine();
 }
 function leftDeleteMouse() {
     canvas.removeEventListener("mousemove", IMoveMouse, false);
@@ -103,6 +100,7 @@ function canvasBackground() {
 }
 
 function wallCollision(ball) {
+   // for(var key in )
     if (ball.x - ball.radius + ball.dx < 0 ||
         ball.x + ball.radius + ball.dx > canvas.width) {
         ball.dx *= -1;
@@ -189,6 +187,20 @@ function drawObjects() {
     }
 }
 
+function DrawWalls() {
+    for (var key in walls) {
+        walls[key].draw();
+    }
+}
+
+
+function DrawArrows() {
+    for (var key in arrows) {
+        arrows[key].draw();
+    }
+}
+
+
 document.onmousemove = function (e) {
     CursorPositionX = e.pageX;
     CursorPositionY = e.pageY;
@@ -197,28 +209,40 @@ document.onmousemove = function (e) {
 
 function draw() {
     clearCanvas();
+   
+
     canvasBackground();
     if (setting == true) {
         setting = !setting;
         DrawLine();
     }
-
+    
     if (!paused) {
         moveObjects();
     }
-
+    for (var a in walls) {
+        walls[a].draw();
+    }
     drawObjects();
+    DrawWalls();
+    DrawArrows();
     staticCollision();
     ballCollision();
     requestAnimationFrame(draw);
 }
 
+draw();
+
+var tmp = new Arrow(100, 100, 180, 220);
+arrows[arrows.length] = tmp;
+
+var a =new Wall();
+walls[walls.length] = a;
+
+var a = new Wall(200, 300,400,20);
+walls[walls.length] = a;
 
 
-    var temp = new Ball(550, 300, randomRadius());
-    temp.dx =2;
-    temp.dy = 1;
-    objArray[objArray.length] = temp;
     var temp = new Ball(800, 400, randomRadius());
     temp.dx =1;
     temp.dy =0;
@@ -234,3 +258,7 @@ function draw() {
     temp.dy = 2;
     objArray[objArray.length] = temp;
     draw();
+
+
+
+

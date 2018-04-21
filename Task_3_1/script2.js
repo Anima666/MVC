@@ -11,29 +11,26 @@ function randomColor() {
 }
 
 function SetColorRed() {
-    var _RedButton = document.getElementById("RedButton");
-    if (indexElement != null) {
+    if (indexElement != null && paused) {
         objArray[indexElement].color = "red";
     }
 }
 
 function SetColorBlue() {
-    var _RedButton = document.getElementById("BlueButton");
-    if (indexElement != null) {
+    if (indexElement != null && paused ) {
         objArray[indexElement].color = "blue";
 
     }
 }
 function SetColorGreen() {
-    var _RedButton = document.getElementById("GreenButton");
-    if (indexElement != null) {
+    if (indexElement != null && paused) {
         objArray[indexElement].color = "green";
     }
 }
 
 function Start() {
-    var _start = document.getElementById("Start");
-    var _startN = document.getElementById("StartN");
+    var _start = document.getElementById("Start1");
+    var _startN = document.getElementById("Start");
     var _RedButton = document.getElementById("RedButton");
     var _BlueButton = document.getElementById("BlueButton");
     var _GreenButton = document.getElementById("GreenButton");
@@ -43,7 +40,7 @@ function Start() {
         _RedButton.disabled = true;
         _GreenButton.disabled = true;
         _start.value = "Stop";
-        _startN = "Stop";
+        _startN.value = "Stop";
         paused = false;
     }
 
@@ -51,27 +48,33 @@ function Start() {
         _BlueButton.disabled = false;
         _RedButton.disabled = false;
         _GreenButton.disabled = false;
-        _startN = "Start";
+        _startN.value = "Start";
         _start.value = "Start";
         paused = true;
     }
 }
 
 function LargeSizeBall() {
-    if (indexElement >= 0) {
+    if (indexElement >= 0 && paused) {
         objArray[indexElement].radius = bigSizeBall;
     }
 }
 
 function MiddleSizeBall() {
-    if (indexElement >= 0) {
+    if (indexElement >= 0 && paused) {
         objArray[indexElement].radius = middleSizeBall;
     }
 }
 
 function SmallSizeBall() {
-    if (indexElement >= 0) {
+    if (indexElement >= 0 && paused) {
         objArray[indexElement].radius = smallSizeBall;
+    }
+}
+
+function DeleteBall() {
+    if (indexElement >= 0 && paused) {
+        objArray.splice(objArray.indexOf(objArray[indexElement]), 1);
     }
 }
 
