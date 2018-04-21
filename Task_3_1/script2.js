@@ -36,6 +36,7 @@ function Start() {
     var _GreenButton = document.getElementById("GreenButton");
 
     if (_start.value == "Start") {
+        DefaultState();
         _BlueButton.disabled = true;
         _RedButton.disabled = true;
         _GreenButton.disabled = true;

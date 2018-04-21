@@ -1,4 +1,6 @@
 function Ball(x, y, radius) {
+    this.isArrow = false;
+    this.idArrow = null;
     this.radius = radius;
     this.dx = randomDx();
     this.dy = randomDy();
@@ -41,18 +43,17 @@ function Wall(x,y,x2,y2) {
 
 
     this.draw = function () {
-        console.log(this.x, this.y, this.x2, this.y2);
         ctx.fillRect(this.x, this.y, this.x2, this.y2);
     }
 }
 
-function Arrow(x, y, x2, y2) {
+function Arrow(x, y, x2, y2,ball) {
     this.x = x;
     this.y = y;
     this.x2 = x2;
     this.y2 = y2;
     var headlen = 10;
-    var angle = Math.atan2(this.y2 - this.y, this.x2 - this.x);
+    var angle = (Math.atan2(this.y2 - this.y, this.x2 - this.x));
 
 
     this.draw = function () {
@@ -61,13 +62,10 @@ function Arrow(x, y, x2, y2) {
         ctx.strokeStyle = "red";
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(this.x2, this.y2);
-
         ctx.lineTo(this.x2 - headlen * Math.cos(angle - Math.PI / 6), this.y2 - headlen * Math.sin(angle - Math.PI / 6));
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(this.x2, this.y2);
         ctx.lineTo(this.x2 - headlen * Math.cos(angle + Math.PI / 6), this.y2 - headlen * Math.sin(angle + Math.PI / 6));
-
-
         ctx.stroke();
     }
 }

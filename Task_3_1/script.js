@@ -1,4 +1,3 @@
-
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
@@ -7,59 +6,74 @@ var indexElement;
 var smallSizeBall = 30;
 var middleSizeBall = 40;
 var bigSizeBall = 50;
-
+var differentWindows = 10;
 var objArray = [];
 var walls = [];
 var arrows = [];
 
 var paused = true;
 
-var setting = false;
+var counterDeleteArrow = 1;
+var cursorPositionX;
+var cursorPositionY;
 
-var CursorPositionX;
-var CursorPositionY;
-
-
-document.addEventListener("keydown", keyDownHandler);
+var isDrawArrow = false;
+document.addEventListener("keydown", KeyDownHandler);
 canvas.addEventListener("mousedown", GetLeftMouse, false);
-canvas.addEventListener("mouseup", leftDeleteMouse, false);
+canvas.addEventListener("mouseup", LeftDeleteMouse, false);
 canvas.addEventListener("dblclick",DblClick ,false)
 
 
-function DrawLine() {
-    ctx.beginPath();
-    ctx.lineWidth = "12";
-    ctx.strokeStyle = "black";
-    alert("X = " + objArray[indexElement].x + " y = " + objArray[indexElement].y );
 
-    ctx.moveTo(objArray[indexElement].x +40, objArray[indexElement].y+60)
-    ctx.lineTo(100, 100);
-    ctx.stroke();
-}
 
 function DblClick() {
-    DrawLine();
+    if (indexElement >= 0) {
+        if (objArray[indexElement].isArrow == false) {
+            isDrawArrow = true;
+        }
+        else{
+            objArray[indexElement].isArrow = false;
+            DeleteArrow();
+        }
+    }
 }
-function leftDeleteMouse() {
+
+function CreateArrow() {
+    var tmp = new Arrow(objArray[indexElement].x, objArray[indexElement].y, cursorPositionX, cursorPositionY);
+    objArray[indexElement].dy = (cursorPositionY - objArray[indexElement].y) / 100;
+    objArray[indexElement].dx = (cursorPositionX - objArray[indexElement].x) / 100;
+    arrows[arrows.length] = tmp;
+    objArray[indexElement].idArrow = arrows.length;
+    objArray[indexElement].isArrow = true;
+    objArray[indexElement].idArrow = arrows.length;
+}
+
+function DeleteArrow() {
+    var _indexDelete =objArray[indexElement].idArrow;
+    arrows.splice(_indexDelete - counterDeleteArrow++, 1);
+}
+
+function LeftDeleteMouse() {
     canvas.removeEventListener("mousemove", IMoveMouse, false);
 }
+
 function IMoveMouse() {
     if (paused) {
         if (indexElement >= 0) {
-            objArray[indexElement].x = CursorPositionX-10;
-            objArray[indexElement].y = CursorPositionY + 16;
+            objArray[indexElement].x = cursorPositionX - differentWindows;
+            objArray[indexElement].y = cursorPositionY + differentWindows;
         }
     }
 }
 
 function GetIndexElement() {
     for (var i = 0; i <= objArray.length - 1; ++i) {
-        var a = CursorPositionX - 10;
-        var b = CursorPositionY + 10;
-        if ((  CursorPositionX - 10 < objArray[i].x + smallSizeBall
-            && CursorPositionX - 10 > objArray[i].x - smallSizeBall)
-            &&(CursorPositionY + 10 < objArray[i].y + smallSizeBall
-            && CursorPositionY + 10 > objArray[i].y - smallSizeBall)) {
+        var a = cursorPositionX - differentWindows;
+        var b = cursorPositionY + differentWindows;
+        if ((cursorPositionX - differentWindows < objArray[i].x + smallSizeBall
+            && cursorPositionX - differentWindows > objArray[i].x - smallSizeBall)
+            && (cursorPositionY + differentWindows < objArray[i].y + smallSizeBall
+            && cursorPositionY + differentWindows > objArray[i].y - smallSizeBall)) {
             return i;
         }
     }
@@ -67,18 +81,21 @@ function GetIndexElement() {
 }
 
 function GetLeftMouse(event) {
-    canvas.addEventListener("mousemove", IMoveMouse, false);
-    indexElement = GetIndexElement();
+    if (isDrawArrow) {
+        CreateArrow();
+        isDrawArrow = false;
+    }
+    else {
+        canvas.addEventListener("mousemove", IMoveMouse, false);
+        indexElement = GetIndexElement();
+    }
 }
-var bigBalls = false;
 
-
-function clearCanvas() {
+function ClearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-
-function keyDownHandler(event) {
+function KeyDownHandler(event) {
     if (event.keyCode == 67) { // c
         objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius());
     } else if (event.keyCode == 32) {//Space
@@ -87,19 +104,16 @@ function keyDownHandler(event) {
         paused = !paused;
     }else if (event.keyCode == 82) { //r
         objArray = [];
-    }else if (event.keyCode == 79){// o
-        setting = true;
-    } else if (event.keyCode == 88) { // x
+    }else if (event.keyCode == 88) { // x
         
     }
 }
 
-
-function canvasBackground() {
+function CanvasBackground() {
     canvas.style.backgroundColor = "rgb(215, 235, 240)";
 }
 
-function wallCollision(ball) {
+function WallCollision(ball) {
    // for(var key in )
     if (ball.x - ball.radius + ball.dx < 0 ||
         ball.x + ball.radius + ball.dx > canvas.width) {
@@ -123,7 +137,7 @@ function wallCollision(ball) {
     }    
 }
 
-function ballCollision() {
+function BallCollision() {
     for (var obj1 in objArray) {
         for (var obj2 in objArray) {
             if (obj1 !== obj2 && distanceNextFrame(objArray[obj1], objArray[obj2]) <= 0) {
@@ -147,11 +161,11 @@ function ballCollision() {
 
             }            
         }
-        wallCollision(objArray[obj1]);
+        WallCollision(objArray[obj1]);
     }
 }
 
-function staticCollision() {
+function StaticCollision() {
     for (var obj1 in objArray) {
         for (var obj2 in objArray) {
             if (obj1 !== obj2 &&
@@ -167,21 +181,14 @@ function staticCollision() {
     }
 }
 
-function drawBalls() {
-    for (var ball in newObj) {
-        newObj[ball].draw();
-    }
-    
-}
-
-function moveObjects() {
+function MoveObjects() {
     for (var obj in objArray) {
         objArray[obj].x += objArray[obj].dx;
         objArray[obj].y += objArray[obj].dy;
     }    
 }
 
-function drawObjects() {
+function DrawObjects() {
     for (var obj in objArray) {
         objArray[obj].draw();
     }
@@ -193,72 +200,81 @@ function DrawWalls() {
     }
 }
 
-
 function DrawArrows() {
     for (var key in arrows) {
         arrows[key].draw();
     }
 }
 
-
 document.onmousemove = function (e) {
-    CursorPositionX = e.pageX;
-    CursorPositionY = e.pageY;
+    cursorPositionX = e.pageX;
+    cursorPositionY = e.pageY;
 }
 
-
 function draw() {
-    clearCanvas();
-   
-
-    canvasBackground();
-    if (setting == true) {
-        setting = !setting;
-        DrawLine();
+    ClearCanvas();
+    CanvasBackground();
+    if (isDrawArrow) {
+        DrawFantomArrow();
     }
-    
-    if (!paused) {
-        moveObjects();
-    }
-    for (var a in walls) {
-        walls[a].draw();
-    }
-    drawObjects();
-    DrawWalls();
-    DrawArrows();
-    staticCollision();
-    ballCollision();
+    if (!paused) 
+        MoveObjects();
+    DrawAll();
+    CheckAllCollision();
     requestAnimationFrame(draw);
 }
 
+function DrawFantomArrow() {
+    ctx.beginPath();
+    ctx.lineWidth = "2";
+    ctx.strokeStyle = "red";
+    ctx.moveTo(objArray[indexElement].x, objArray[indexElement].y);
+    ctx.lineTo(cursorPositionX, cursorPositionY);
+    var angle = (Math.atan2(cursorPositionY - objArray[indexElement].y, cursorPositionX - objArray[indexElement].x))
+    ctx.lineTo(cursorPositionX - 10 * Math.cos(angle - Math.PI / 6), cursorPositionY - 10 * Math.sin(angle - Math.PI / 6));
+    ctx.moveTo(objArray[indexElement].x, objArray[indexElement].y);
+    ctx.lineTo(cursorPositionX, cursorPositionY);
+    ctx.lineTo(cursorPositionX - 10 * Math.cos(angle + Math.PI / 6), cursorPositionY - 10 * Math.sin(angle + Math.PI / 6));
+    ctx.stroke();
+}
+
+function DrawAll() {
+    DrawObjects();
+    DrawWalls();
+    DrawArrows();
+}
+
+function CheckAllCollision() {
+    StaticCollision();
+    BallCollision();
+}
+
+function DefaultState() {
+    debugger;
+
+    counterDeleteArrow = 1;
+    arrows = [];
+    for (var i = 0; i < objArray.length; i++) {
+        objArray[i].isArrow = false;
+        objArray[i].idArrow = null;
+    }
+}
 draw();
 
-var tmp = new Arrow(100, 100, 180, 220);
-arrows[arrows.length] = tmp;
-
-var a =new Wall();
-walls[walls.length] = a;
-
-var a = new Wall(200, 300,400,20);
-walls[walls.length] = a;
 
 
-    var temp = new Ball(800, 400, randomRadius());
-    temp.dx =1;
-    temp.dy =0;
-    objArray[objArray.length] = temp;
-    draw();
-    var temp = new Ball(700, 400, randomRadius());
-    temp.dx = 0;
-    temp.dy = 1;
-    objArray[objArray.length] = temp;
-    draw();
-    var temp = new Ball(600, 400, randomRadius());
-    temp.dx = 1;
-    temp.dy = 2;
-    objArray[objArray.length] = temp;
-    draw();
-
-
-
-
+var temp = new Ball(800, 400, randomRadius());
+temp.dx =0;
+temp.dy =0;
+objArray[objArray.length] = temp;
+draw();
+var temp = new Ball(700, 400, randomRadius());
+temp.dx = 0;
+temp.dy = 0;
+objArray[objArray.length] = temp;
+draw();
+var temp = new Ball(600, 400, randomRadius());
+temp.dx = 0;
+temp.dy = 0;
+objArray[objArray.length] = temp;
+draw();
