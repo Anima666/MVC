@@ -1,3 +1,6 @@
+var smallSizeBall = 30;
+var middleSizeBall = 40;
+var bigSizeBall = 50;
 
 function randomColor() {
     red = Math.floor(Math.random() * 3) * 127;
@@ -7,31 +10,30 @@ function randomColor() {
     return rc;
 }
 
-function SetRedColorRed() {
+function SetColorRed() {
     var _RedButton = document.getElementById("RedButton");
     if (indexElement != null) {
         objArray[indexElement].color = "red";
-        
     }
 }
 
-function SetRedColorBlue() {
+function SetColorBlue() {
     var _RedButton = document.getElementById("BlueButton");
     if (indexElement != null) {
         objArray[indexElement].color = "blue";
 
     }
 }
-function SetRedColorGreen() {
+function SetColorGreen() {
     var _RedButton = document.getElementById("GreenButton");
     if (indexElement != null) {
         objArray[indexElement].color = "green";
-
     }
 }
 
 function Start() {
     var _start = document.getElementById("Start");
+    var _startN = document.getElementById("StartN");
     var _RedButton = document.getElementById("RedButton");
     var _BlueButton = document.getElementById("BlueButton");
     var _GreenButton = document.getElementById("GreenButton");
@@ -41,6 +43,7 @@ function Start() {
         _RedButton.disabled = true;
         _GreenButton.disabled = true;
         _start.value = "Stop";
+        _startN = "Stop";
         paused = false;
     }
 
@@ -48,45 +51,41 @@ function Start() {
         _BlueButton.disabled = false;
         _RedButton.disabled = false;
         _GreenButton.disabled = false;
+        _startN = "Start";
         _start.value = "Start";
         paused = true;
-
     }
-   
- 
+}
 
+function LargeSizeBall() {
+    if (indexElement >= 0) {
+        objArray[indexElement].radius = bigSizeBall;
+    }
+}
+
+function MiddleSizeBall() {
+    if (indexElement >= 0) {
+        objArray[indexElement].radius = middleSizeBall;
+    }
+}
+
+function SmallSizeBall() {
+    if (indexElement >= 0) {
+        objArray[indexElement].radius = smallSizeBall;
+    }
 }
 
 function randomX() {
-    //x = Math.floor(Math.random() * canvas.width);//Если нужен рандом 
-    //if (x < 30) {
-    //    x = 30;
-    //} else if (x + 30 > canvas.width) {
-    //    x = canvas.width - 30;
-    //}
-   
     return 250;
-}//Задает x
+}
 
 function randomY() { 
-    //y = Math.floor(Math.random() * canvas.height);    //Если нужен рандом 
-    //if (y < 30) {
-    //    y = 30;
-    //} else if (y + 30 > canvas.height) {
-    //    y = canvas.height - 30;
-    //}
     return 400;
-}//Задает y
+}
 
 function randomRadius() {
-    //if (bigBalls) {
-    //    r = 30;// Math.ceil(Math.random() * 10 + 13);
-    //    return r;
-    //} else {
-    //    //r = Math.ceil(Math.random() * 2 + 1);
-    //    r = 2;
         return smallSizeBall;
-    }
+ }
 
 function randomDx() {
     r = Math.floor(Math.random() * 10 - 5);
