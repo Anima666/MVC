@@ -1,6 +1,8 @@
 function Ball(x, y, radius) {
     this.isArrow = false;
     this.idArrow = null;
+    this.BackUpDx = null;
+    this.BackUpDy = null;
     this.radius = radius;
     this.dx = randomDx();
     this.dy = randomDy();

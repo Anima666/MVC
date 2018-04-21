@@ -1,9 +1,4 @@
-﻿
-.panel {
-    background: transparent;
-
-
-
+﻿.panel {
     justify-content: center;
     align-items: center;
     background: #39464e;
@@ -22,84 +17,90 @@
     display: flex;
     top: -100px;
 }
-.bot-panel {
-display:flex;
-top: 100%;
 
+.bot-panel {
+    display: flex;
+    top: 100%;
 }
 /* Блок сообщения */
 
 /* Переключатель панели */
 .top-button {
-display: block;
-position: absolute;
-
-top: 100px;
-background:transparent;
-width: 50px;
-height: 30px;
-border-radius:10px;
-padding: 8px 5px;
-color: #FFF;
-line-height: 10px;
-font-size: 12px;
-text-align: center;
--webkit-font-smoothing: antialiased;
-transition: all 400ms cubic-bezier(0.17,0.04,0.03,0.94);
+    display: block;
+    position: absolute;
+    top: 100px;
+    background: transparent;
+    width: 50px;
+    height: 30px;
+    border-radius: 10px;
+    padding: 8px 5px;
+    color: #FFF;
+    line-height: 10px;
+    font-size: 12px;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    transition: all 400ms cubic-bezier(0.17,0.04,0.03,0.94);
 }
-.bot-button {
-display: block;
-position: absolute;
 
-top: -30px;
-background: #2bbbad;
-width: 50px;
-height: 30px;
-border-radius: 5px 5px 0 0 ;
-padding: 8px 5px;
-color: #FFF;
-line-height: 20px;
-font-size: 12px;
-text-align: center;
--webkit-font-smoothing: antialiased;
-transition: all 400ms cubic-bezier(0.17,0.04,0.03,0.94);
+.bot-button {
+    display: block;
+    position: absolute;
+    top: -30px;
+    background: #2bbbad;
+    width: 50px;
+    height: 30px;
+    border-radius: 5px 5px 0 0;
+    padding: 8px 5px;
+    color: #FFF;
+    line-height: 20px;
+    font-size: 12px;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    transition: all 400ms cubic-bezier(0.17,0.04,0.03,0.94);
 }
 
 /* Стрелка переключателя вниз */
 label.btn:before {
-content: 'open';
-font: normal 18px/1 FontAwesome;
-text-decoration: inherit
+    content: 'open';
+    font: normal 18px/1 FontAwesome;
+    text-decoration: inherit
 }
 /* Активация панели */
-.top-panel:hover{
-top:0px;
-}
-.bot-panel:hover{
-top:90%;
+.top-panel:hover {
+    top: 0px;
 }
 
+.bot-panel:hover {
+    top: 90%;
+}
 
 /* ВНЕШНИЙ БЛОК */
 #panel {
     position: fixed; /* положение */
-    top: 70px; /* отступ сверху */
+    top: 0px; /* отступ сверху */
     right: 0; /* отступ слева */
-    background: transparent; /* цвет фона */
-    width: 10px; /* ширина блока */
-    height: 450px; /* высота блока */
+    background: green; /* transparent; */
+    width: 20px; /* ширина блока */
+    height: 550px; /* высота блока */
     font: 14px Arial; /* размер и тип шрифта */
     color: #fff; /* цвет текста */
     text-align: center; /* выравнивание текста по центру */
     padding: 5px; /* отступы от границ внутри блока */
-    border-radius: 50px 100px;
+    -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
 }
+
 
 /* СКРЫТЫЙ БЛОК */
 #hidden_panel {
     position: fixed; /* положение */
     top: 0px; /* отступ сверху */
-    right: -220px; /* отступ слева */
+    right: -130px; /* отступ слева */
     background: #39464e; /* цвет фона */
     color: #000; /* цвет текста */
     width: 100px; /* ширина блока */
@@ -107,12 +108,19 @@ top:90%;
     padding: 10px; /* отступы от границ внутри блока */
     text-align: left; /* выравнивание текста */
     -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
+    -moz-border-radius: 0 5px 5px 0;
     border-radius: 100px 0px 0px 100px;
     display: inline-grid;
+    opacity: 0.7; /* Значение прозрачности */
+    filter: alpha(Opacity=70); /* Прозрачность в IE */
 }
 
 #panel:hover {
-    right: 120px; /* при наведении выдвигается на скрытые 200px + 20px отступы */
+    right: -150px; /* при наведении выдвигается на скрытые 200px + 20px отступы */
 }
 
     #panel:hover #hidden_panel {
@@ -129,17 +137,108 @@ top:90%;
     width: 0;
     height: 0;
     border-top: 20px solid transparent;
-    border-left: 30px solid red;
+    border-left: 30px solid green;
     border-bottom: 15px solid transparent;
 }
 
-.trash {
-    
-    border-left: -10px solid transparent;
-    border-right: -10px solid transparent;
-    height: 50px;
-    width: 130%;
+.Pause_buttom {
+    background: #39464e;
+    border-style: double;
+    height: 40px;
+    border-width: 0px 15px 0px 15px;
+    border-width: 0px 0px 0px 40px;
+    border-color: red;
 }
 
 
+
+
+body {
+    background-color: khaki;
+    text-align: center;
+    font-family: Ubuntu Mono;
+}
+
+#title {
+    color: black;
+    font-size: 200%;
+    font-style: normal;
+    margin: 1px;
+    border: 1px;
+}
+
+#balls {
+    margin-top: 5px;
+}
+
+#myCanvas {
+    margin-top: -20px;
+}
+
+section.footer {
+    color: black;
+    font-family: Ubuntu Mono;
+    font-style: normal;
+    font-size: small;
+}
+
+#disclaimer {
+    font-size: 74%;
+    color: gray;
+}
+
+
+
+/* ВНЕШНИЙ БЛОК */
+#panel_left {
+    position: fixed; /* положение */
+    left: 0; /* отступ слева */
+    background: green; /* transparent; */
+    width: 30px; /* ширина блока */
+    height: 550px; /* высота блока */
+    font: 14px Arial; /* размер и тип шрифта */
+    color: #fff; /* цвет текста */
+    text-align: center; /* выравнивание текста по центру */
+    padding: 1px; /* отступы от границ внутри блока */
+    -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    opacity: 0.7; /* Значение прозрачности */
+    filter: alpha(Opacity=70); /* Прозрачность в IE */
+}
+
+
+/* СКРЫТЫЙ БЛОК */
+#hidden_panel_left {
+    position: fixed; /* положение */
+    top: 0px; /* отступ сверху */
+    left: -120px; /* отступ слева */
+    background: #39464e; /* цвет фона */
+    color: #000; /* цвет текста */
+    width: 100px; /* ширина блока */
+    height: 550px; /* высота блока */
+    padding: 10px; /* отступы от границ внутри блока */
+    text-align: left; /* выравнивание текста */
+    -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
+    -moz-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    opacity: 0.7; /* Значение прозрачности */
+    filter: alpha(Opacity=70); /* Прозрачность в IE */
+}
+
+#panel_left:hover {
+    left: -140px; /* при наведении выдвигается на скрытые 200px + 20px отступы */
+}
+
+    #panel_left:hover #hidden_panel_left {
+        left: 0; /* отступ слева */
+    }
 

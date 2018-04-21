@@ -37,8 +37,18 @@ function DblClick() {
         }
     }
 }
+function BackUpParameters() {
+    objArray[indexElement].BackUpDx = objArray[indexElement].dx;
+    objArray[indexElement].BackUpDx = objArray[indexElement].dy;
+}
+
+function RecoveryParameters() {
+    objArray[indexElement].dx = objArray[indexElement].BackUpDx;
+    objArray[indexElement].dy = objArray[indexElement].BackUpDx;
+}
 
 function CreateArrow() {
+    BackUpParameters();
     var tmp = new Arrow(objArray[indexElement].x, objArray[indexElement].y, cursorPositionX, cursorPositionY);
     objArray[indexElement].dy = (cursorPositionY - objArray[indexElement].y) / 100;
     objArray[indexElement].dx = (cursorPositionX - objArray[indexElement].x) / 100;
@@ -49,6 +59,7 @@ function CreateArrow() {
 }
 
 function DeleteArrow() {
+    RecoveryParameters();
     var _indexDelete =objArray[indexElement].idArrow;
     arrows.splice(_indexDelete - counterDeleteArrow++, 1);
 }
@@ -70,10 +81,10 @@ function GetIndexElement() {
     for (var i = 0; i <= objArray.length - 1; ++i) {
         var a = cursorPositionX - differentWindows;
         var b = cursorPositionY + differentWindows;
-        if ((cursorPositionX - differentWindows < objArray[i].x + smallSizeBall
-            && cursorPositionX - differentWindows > objArray[i].x - smallSizeBall)
-            && (cursorPositionY + differentWindows < objArray[i].y + smallSizeBall
-            && cursorPositionY + differentWindows > objArray[i].y - smallSizeBall)) {
+        if ((cursorPositionX - differentWindows < objArray[i].x + objArray[i].radius
+            && cursorPositionX - differentWindows > objArray[i].x - objArray[i].radius)
+            && (cursorPositionY + differentWindows < objArray[i].y + objArray[i].radius
+            && cursorPositionY + differentWindows > objArray[i].y - objArray[i].radius)) {
             return i;
         }
     }
@@ -114,7 +125,6 @@ function CanvasBackground() {
 }
 
 function WallCollision(ball) {
-   // for(var key in )
     if (ball.x - ball.radius + ball.dx < 0 ||
         ball.x + ball.radius + ball.dx > canvas.width) {
         ball.dx *= -1;
@@ -250,7 +260,6 @@ function CheckAllCollision() {
 }
 
 function DefaultState() {
-    debugger;
 
     counterDeleteArrow = 1;
     arrows = [];

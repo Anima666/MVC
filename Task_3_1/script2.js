@@ -29,28 +29,28 @@ function SetColorGreen() {
 }
 
 function Start() {
-    var _start = document.getElementById("Start1");
-    var _startN = document.getElementById("Start");
+
+    var _start = document.getElementById("Start");
     var _RedButton = document.getElementById("RedButton");
+    var _Pause_buttom = document.getElementById("Pause_buttom");
     var _BlueButton = document.getElementById("BlueButton");
     var _GreenButton = document.getElementById("GreenButton");
-
-    if (_start.value == "Start") {
+    if (_start.value == " ") {
+        _start.className ="Pause_buttom";
         DefaultState();
         _BlueButton.disabled = true;
         _RedButton.disabled = true;
         _GreenButton.disabled = true;
-        _start.value = "Stop";
-        _startN.value = "Stop";
+        _start.value = "  ";
         paused = false;
     }
 
     else {
+        _start.className="startButton";
         _BlueButton.disabled = false;
         _RedButton.disabled = false;
         _GreenButton.disabled = false;
-        _startN.value = "Start";
-        _start.value = "Start";
+        _start.value = " ";
         paused = true;
     }
 }
