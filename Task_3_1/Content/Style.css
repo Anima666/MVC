@@ -1,30 +1,38 @@
-﻿.panel {
+﻿/*Top panel*/
+.panel {
     justify-content: center;
     align-items: center;
     background: #39464e;
     position: absolute;
     display: none;
-    left: 550px;
-    width: 15%;
-    height: 90px;
+    left: 600px;
+    width: 10%;
+    height: 70px;
     padding: 0;
-    border-radius: 50px;
+    border-radius:0 0 50px 50px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
     transition: top 400ms cubic-bezier(0.17,0.04,0.03,0.94)
 }
+
+
 
 .top-panel {
     display: flex;
     top: -100px;
 }
-
-.bot-panel {
-    display: flex;
-    top: 100%;
+    .top-panel:hover {
+        top: 0px;
+    }
+    /*Button*/
+.startButton {
+    background: #39464e;
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-left: 30px solid green;
+    border-bottom: 15px solid transparent;
+    outline:none;
 }
-/* Блок сообщения */
-
-/* Переключатель панели */
 .top-button {
     display: block;
     position: absolute;
@@ -41,59 +49,100 @@
     -webkit-font-smoothing: antialiased;
     transition: all 400ms cubic-bezier(0.17,0.04,0.03,0.94);
 }
+/*Finish button*/
+/*Finish panel*/
 
-.bot-button {
-    display: block;
-    position: absolute;
-    top: -30px;
-    background: #2bbbad;
-    width: 50px;
-    height: 30px;
-    border-radius: 5px 5px 0 0;
-    padding: 8px 5px;
-    color: #FFF;
-    line-height: 20px;
-    font-size: 12px;
+/*Left panel*/
+.newWallVerticale {
+    height: 80px;
+    width: 20%;
+    background: red;
+}
+.horizontWall {
     text-align: center;
-    -webkit-font-smoothing: antialiased;
-    transition: all 400ms cubic-bezier(0.17,0.04,0.03,0.94);
+    height: 20px;
+    width: 80%;
+    background: black;
 }
 
-/* Стрелка переключателя вниз */
-label.btn:before {
-    content: 'open';
-    font: normal 18px/1 FontAwesome;
-    text-decoration: inherit
+.newBall {
+    border-radius: 50px 50px 50px 50px;
+    height: 80px;
+    width: 80%;
+    background: yellow;
 }
-/* Активация панели */
-.top-panel:hover {
-    top: 0px;
-}
+/*Finished panel*/
 
-.bot-panel:hover {
-    top: 90%;
-}
 
-/* ВНЕШНИЙ БЛОК */
+
+
+
+
+/* Panel right */
 #panel {
-    position: fixed; /* положение */
-    top: 0px; /* отступ сверху */
-    right: 0; /* отступ слева */
-    background: green; /* transparent; */
-    width: 20px; /* ширина блока */
-    height: 550px; /* высота блока */
-    font: 14px Arial; /* размер и тип шрифта */
-    color: #fff; /* цвет текста */
-    text-align: center; /* выравнивание текста по центру */
-    padding: 5px; /* отступы от границ внутри блока */
-    -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
+    position: fixed; 
+    top: 0px; 
+    right: 0; 
+    background: green; 
+    width: 20px; 
+    height: 550px; 
+    font: 14px Arial; 
+    color: #fff; 
+    text-align: center; 
+    padding: 5px; 
+    -webkit-transition-duration: 0.3s; 
     -moz-transition-duration: 0.3s;
     -o-transition-duration: 0.3s;
     transition-duration: 0.3s;
-    -webkit-border-radius: 0 5px 5px 0; /* закругление границ для всех браузеров*/
+    -webkit-border-radius: 0 5px 5px 0;
     -moz-border-radius: 0 5px 5px 0;
     border-radius: 0 5px 5px 0;
 }
+
+.largeBall {
+    border-radius: 50px 50px 50px 50px;
+    height:90px;
+    width: 140%;
+    border: 10px solid black;
+}
+
+.middleBall {
+    border-radius: 50px 50px 50px 50px;
+    height: 80px;
+    width: 130%;
+    border: 8px solid black;
+}
+
+.smallBall {
+    border-radius: 50px 50px 50px 50px;
+    height: 70px;
+    width: 120%;
+    border: 6px solid black;
+}
+
+.setColorRed {
+    border-radius: 50px 50px 50px 50px;
+    height: 60px;
+    width: 120%;
+    background: red;
+    border: 6px solid black;
+}
+.setColorBlue {
+    border-radius: 50px 50px 50px 50px;
+    height: 60px;
+    width: 120%;
+    background: blue;
+    border: 6px solid black;
+}
+.setColorGreen {
+    border-radius: 50px 50px 50px 50px;
+    height: 60px;
+    width: 120%;
+    background: green;
+    border: 6px solid black;
+}
+
+
 
 
 /* СКРЫТЫЙ БЛОК */
@@ -104,7 +153,7 @@ label.btn:before {
     background: #39464e; /* цвет фона */
     color: #000; /* цвет текста */
     width: 100px; /* ширина блока */
-    height: 550px; /* высота блока */
+    height: 600px; /* высота блока */
     padding: 10px; /* отступы от границ внутри блока */
     text-align: left; /* выравнивание текста */
     -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
@@ -131,15 +180,9 @@ label.btn:before {
     justify-content:center;
     align-items:center;
 }
+/*Panel finish*/
 
-.startButton {
-    background: #39464e;
-    width: 0;
-    height: 0;
-    border-top: 20px solid transparent;
-    border-left: 30px solid green;
-    border-bottom: 15px solid transparent;
-}
+
 
 .Pause_buttom {
     background: #39464e;
@@ -148,6 +191,7 @@ label.btn:before {
     border-width: 0px 15px 0px 15px;
     border-width: 0px 0px 0px 40px;
     border-color: red;
+    outline:none;
 }
 
 
@@ -171,6 +215,7 @@ body {
     margin-top: 5px;
 }
 
+
 #myCanvas {
     margin-top: -20px;
 }
@@ -189,7 +234,7 @@ section.footer {
 
 
 
-/* ВНЕШНИЙ БЛОК */
+/*Panel Left */
 #panel_left {
     position: fixed; /* положение */
     left: 0; /* отступ слева */
@@ -241,4 +286,44 @@ section.footer {
     #panel_left:hover #hidden_panel_left {
         left: 0; /* отступ слева */
     }
+    /*Finish panel*/
 
+
+.outLineButton {
+    outline: none
+}
+
+
+.btn-lg {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;

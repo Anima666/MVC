@@ -5,9 +5,6 @@
     <title>Task 3</title>
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="Content/Style.css" />
-    
-
-
 </head>
 <body style="text-align: center">
 
@@ -15,10 +12,10 @@
     <div id="panel_left" >
         <div id="hidden_panel_left" style="display:inline-grid">
             <div style="text-align:center">
-                <input type="button" onclick="NewWallVerticale()" value="         " id="VerticalWall" style="height:80px;width:20%;background:red;" />
+                <input type="button" onclick="NewWallVerticale()" value="         " id="VerticalWall" class="newWallVerticale"/>
             </div>
-                <input type="button" onclick="NewWallHorizont()"value="         " id="HorizontWall" style="text-align:center;height:20px;width:80%;background:black;" />
-            <input type="button" onclick="NewBall()" value="         " id="NewBall" style="border-radius: 50px 50px 50px 50px;height:80px;width:80%;background:yellow;" />
+                <input type="button" onclick="NewWallHorizont()"value="         " id="HorizontWall" class="horizontWall" />
+            <input type="button" onclick="NewBall()" value="         " id="NewBall" class="newBall outLineButton" />
 
         </div>
     </div>
@@ -34,15 +31,16 @@
     <div id="panel">
         <div id="hidden_panel" style="display:inline-grid">
             <div class="sizeBall">
-                <input type="button" onclick="LargeSizeBall()" value="         " id="LargeBall" style="border-radius: 50px 50px 50px 50px;height:80px;width:160%" />
-                <input type="button" onclick="MiddleSizeBall()" value="         " id="MiddleBall" style="border-radius: 50px 50px 50px 50px;height:70px;width:140%" />
-                <input type="button" onclick="SmallSizeBall()" value="         " id="SmallBall" style="border-radius: 50px 50px 50px 50px;height:60px;width:120%" />
+                <input type="button" onclick="LargeSizeBall()" value="         " id="LargeBall" class="largeBall outLineButton" />
+                <input type="button" onclick="MiddleSizeBall()" value="         " id="MiddleBall" class="middleBall outLineButton" />
+                <input type="button" onclick="SmallSizeBall()" value="         " id="SmallBall" class="smallBall outLineButton" />
             </div>
             <div class="sizeBall">
-                <input type="button" onclick="SetColorRed()" value="         " id="RedButton" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:red" />
-                <input type="button" onclick="SetColorGreen()" value="         " id="GreenButton" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:green" />
-                <input type="button" onclick="SetColorBlue()" value="         " id="BlueButton" style="border-radius: 50px 50px 50px 50px;height:60px;width:130%;background:blue" />
-                <input type="button" onclick="DeleteBall()" value="         " id="Delete" class="trash" />
+                <input type="button" onclick="SetColorRed()" value="         " id="RedButton" class="setColorRed outLineButton" />
+                <input type="button" onclick="SetColorGreen()" value="         " id="GreenButton" class="setColorGreen outLineButton" />
+                <input type="button" onclick="SetColorBlue()" value="         " id="BlueButton" class="setColorBlue outLineButton" />
+
+                <input type="button" onclick="DeleteBall()" value="         " id="Delete" class="btn btn-info btn-lg glyphicon-trash outLineButton" />
             </div>
         </div>
     </div>

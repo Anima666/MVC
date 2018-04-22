@@ -1,11 +1,24 @@
 var smallSizeBall = 30;
 var middleSizeBall = 40;
 var bigSizeBall = 50;
+var indexNewItem;
+var catchBall = false;
+var catchVerticWall = false;
+var catchHorizontWall = false;
 
 function randomColor() {
     red = Math.floor(Math.random() * 3) * 127;
     green = Math.floor(Math.random() * 3) * 127;
     blue = Math.floor(Math.random() * 3) * 127;
+    rc = "rgb(" + red + ", " + green + ", " + blue + ")";
+    return rc;
+}
+
+
+function ReturnBlack() {
+    red = 200;
+    green = 10;
+    blue = 50;
     rc = "rgb(" + red + ", " + green + ", " + blue + ")";
     return rc;
 }
@@ -22,6 +35,7 @@ function SetColorBlue() {
 
     }
 }
+
 function SetColorGreen() {
     if (indexElement != null && paused) {
         objArray[indexElement].color = "green";
@@ -29,7 +43,6 @@ function SetColorGreen() {
 }
 
 function Start() {
-
     var _start = document.getElementById("Start");
     var _RedButton = document.getElementById("RedButton");
     var _Pause_buttom = document.getElementById("Pause_buttom");
@@ -37,14 +50,13 @@ function Start() {
     var _GreenButton = document.getElementById("GreenButton");
     if (_start.value == " ") {
         _start.className ="Pause_buttom";
-        DefaultState();
+       // DefaultState();
         _BlueButton.disabled = true;
         _RedButton.disabled = true;
         _GreenButton.disabled = true;
         _start.value = "  ";
         paused = false;
     }
-
     else {
         _start.className="startButton";
         _BlueButton.disabled = false;
@@ -55,25 +67,33 @@ function Start() {
     }
 }
 
-var currentNewBall;
-var catchBall = false;
 function NewBall() {
-    
-    catchBall = true;
-    var temp = new Ball(cursorPositionX, cursorPositionY, randomRadius());
-    temp.dx = 0;
-    temp.dy = 0;
-    objArray[objArray.length] = temp;
-    currentNewBall = objArray.length - 1;
-    
+    if (paused && !catchBall && !catchVerticWall && !catchHorizontWall) {
+        catchBall = true;
+        var temp = new Ball(800, 400, randomRadius());
+        temp.id = idBall;
+        ++idBall;
+        objArray[objArray.length] = temp;
+        indexNewItem = objArray.length - 1;
+    }
 }
 
 function NewWallHorizont() {
-    alert("WallHorizont");
+    if (paused && !catchBall && !catchVerticWall && !catchHorizontWall) {
+        catchHorizontWall = true;
+        var temp = new Wall(cursorPositionX, cursorPositionY, 250, 20)
+        walls[walls.length] = temp;
+        indexNewItem = walls.length - 1;
+    }
 }
 
 function NewWallVerticale() {
-    alert("WallVert");
+    if (paused && !catchBall && !catchVerticWall && !catchHorizontWall) {
+        catchVerticWall = true;
+        var temp = new Wall(cursorPositionX, cursorPositionY, 20, 250)
+        walls[walls.length] = temp; 
+        indexNewItem = walls.length - 1;
+    }
 }
 
 function LargeSizeBall() {
@@ -97,6 +117,7 @@ function SmallSizeBall() {
 function DeleteBall() {
     if (indexElement >= 0 && paused) {
         objArray.splice(objArray.indexOf(objArray[indexElement]), 1);
+        idBall--;
     }
 }
 
@@ -128,4 +149,15 @@ function distanceNextFrame(a, b) {
 
 function distance(a, b) {
     return Math.sqrt((a.x - b.x)**2 + (a.y - b.y)**2);
+}
+
+function isHave(PointX, PointY) {
+    //x1 = 200,x2=500;
+    //y1=200;y2=200;
+    var a = ((200 - 200) * PointX) + ((500 - 200) * PointY) + (200 * 200 - 500 * 200)
+    if (a == 0)
+        alert("YES");
+    else {
+        alert("Net");
+    }
 }
