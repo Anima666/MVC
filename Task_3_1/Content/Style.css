@@ -215,12 +215,12 @@ section.footer {
 /* СКРЫТЫЙ БЛОК */
 #hidden_panel_left {
     position: fixed; /* положение */
-    top: 0px; /* отступ сверху */
+    top: 85px; /* отступ сверху */
     left: -120px; /* отступ слева */
     background: #39464e; /* цвет фона */
     color: #000; /* цвет текста */
     width: 100px; /* ширина блока */
-    height: 550px; /* высота блока */
+    height: 350px; /* высота блока */
     padding: 10px; /* отступы от границ внутри блока */
     text-align: left; /* выравнивание текста */
     -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/

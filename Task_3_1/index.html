@@ -12,9 +12,14 @@
 <body style="text-align: center">
 
 
-    <div id="panel_left">
-        <div id="hidden_panel_left">
-            Содержание блока
+    <div id="panel_left" >
+        <div id="hidden_panel_left" style="display:inline-grid">
+            <div style="text-align:center">
+                <input type="button" onclick="NewWallVerticale()" value="         " id="VerticalWall" style="height:80px;width:20%;background:red;" />
+            </div>
+                <input type="button" onclick="NewWallHorizont()"value="         " id="HorizontWall" style="text-align:center;height:20px;width:80%;background:black;" />
+            <input type="button" onclick="NewBall()" value="         " id="NewBall" style="border-radius: 50px 50px 50px 50px;height:80px;width:80%;background:yellow;" />
+
         </div>
     </div>
 

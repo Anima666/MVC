@@ -55,6 +55,27 @@ function Start() {
     }
 }
 
+var currentNewBall;
+var catchBall = false;
+function NewBall() {
+    
+    catchBall = true;
+    var temp = new Ball(cursorPositionX, cursorPositionY, randomRadius());
+    temp.dx = 0;
+    temp.dy = 0;
+    objArray[objArray.length] = temp;
+    currentNewBall = objArray.length - 1;
+    
+}
+
+function NewWallHorizont() {
+    alert("WallHorizont");
+}
+
+function NewWallVerticale() {
+    alert("WallVert");
+}
+
 function LargeSizeBall() {
     if (indexElement >= 0 && paused) {
         objArray[indexElement].radius = bigSizeBall;

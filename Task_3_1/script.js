@@ -74,6 +74,7 @@ function IMoveMouse() {
             objArray[indexElement].x = cursorPositionX - differentWindows;
             objArray[indexElement].y = cursorPositionY + differentWindows;
         }
+       
     }
 }
 
@@ -92,6 +93,11 @@ function GetIndexElement() {
 }
 
 function GetLeftMouse(event) {
+    if (catchBall == true) {
+        objArray[currentNewBall].x = cursorPositionX;
+        objArray[currentNewBall].y = cursorPositionY;
+        catchBall = false;
+    }
     if (isDrawArrow) {
         CreateArrow();
         isDrawArrow = false;
@@ -224,6 +230,10 @@ document.onmousemove = function (e) {
 function draw() {
     ClearCanvas();
     CanvasBackground();
+    if (catchBall == true) {
+        objArray[currentNewBall].x = cursorPositionX;
+        objArray[currentNewBall].y = cursorPositionY;
+    }
     if (isDrawArrow) {
         DrawFantomArrow();
     }
