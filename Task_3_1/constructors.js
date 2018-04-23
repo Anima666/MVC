@@ -1,7 +1,6 @@
 function Ball(x, y, radius) {
 
-    this.arrowX = null;
-    this.arrowY = null;
+
     this.radius = radius;
     this.id = null;
     this.dx = 1;

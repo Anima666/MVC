@@ -12,6 +12,7 @@ var objArray = [];
 var walls = [];
 var idBall = 0;
 
+var connectionData = true;
 var paused = true;
 
 var cursorPositionX;
@@ -19,8 +20,7 @@ var cursorPositionY;
 
 var startWallX = 0;
 var startWallY = 0;
-var startWallX = 0;
-var startWallY = 0;
+
 var selectedIndex = -100;
 
 var isDrawWall = false;
@@ -170,12 +170,13 @@ function ClearCanvas() {
 
 function KeyDownHandler(event) {
     if (event.keyCode == 67) { // c
-        var temp = new Ball(800, 400, randomRadius());
-        alert(idBall);
+        //var temp = new Ball(800, 400, randomRadius());
+        //alert(idBall);
 
-        temp.id = idBall;
-        ++idBall;
-        objArray[objArray.length] = temp;
+        //temp.id = idBall;
+        //++idBall;
+        //objArray[objArray.length] = temp;
+        connectionData = false;
        
     } else if (event.keyCode == 32) {//Space
     }
@@ -284,7 +285,13 @@ document.onmousemove = function (e) {
 }
 
 
+
 function draw() {
+    if (connectionData == false) {
+        connectionData = true;
+        GetDataConnection();
+        
+    }
     ClearCanvas();
     CanvasBackground();
     CheckCatchItem();
