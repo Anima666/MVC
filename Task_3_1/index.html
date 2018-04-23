@@ -10,13 +10,13 @@
 
 
     <div id="panel_left" >
-        <div id="hidden_panel_left" style="display:inline-grid">
+        <div id="hidden_panel_left" style="display:inline-grid;text-align:center">
             <div style="text-align:center">
-                <input type="button" onclick="NewWallVerticale()" value="         " id="VerticalWall" class="newWallVerticale"/>
+                <input type="button" onclick="NewWallHorizont()" value="         " id="HorizontWall" class="horizontWall" />
             </div>
-                <input type="button" onclick="NewWallHorizont()"value="         " id="HorizontWall" class="horizontWall" />
-            <input type="button" onclick="NewBall()" value="         " id="NewBall" class="newBall outLineButton" />
-
+            <div style="text-align:center">
+                <input type="button" onclick="NewBall()" value="         " id="NewBall" class="newBall outLineButton" />
+            </div>
         </div>
     </div>
 
@@ -45,27 +45,11 @@
         </div>
     </div>
 
-
-
     <div>
-
-        <canvas id="myCanvas" width="1330" height="590" style="border:1px solid black;"></canvas>
+        <canvas id="myCanvas" width="1350" height="660" style="border:1px solid black;"></canvas>
         <script src="constructors.js"></script>
         <script src="script2.js"></script>
         <script src="script.js"></script>
     </div>
-    <!--<div>
-        <input type="button" name="SelectColorRed" onclick="SetColorRed()" style="width:7%;height:60px;" id="RedButton" value="Red" />
-        <input type="button" name="SelectColorGreen" onclick="SetColorGreen()" style="width:7%;height:60px;" id="GreenButton" value="Green" />
-        <input type="button" name="SelectColorBlue" onclick="SetColorBlue()" style="width:7%;height:60px;" id="BlueButton" value="Blue" />
-
-
-        <input type="button" onclick="Start()" style="width:20%;height:60px;" value="Start" id="Start1" />
-        <input type="button" name="PASS" onclick="PASS()" style="width:7%;height:60px;" value="PASS" />
-
-        <input type="button" name="PASS" onclick="PASS()" style="width:7%;height:60px;" value="PASS" />
-        <input type="button" name="PASS" onclick="PASS()" style="width:7%;height:60px;" value="PASS" />
-
-    </div>-->
 </body>
 </html>

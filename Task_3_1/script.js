@@ -1,3 +1,4 @@
+
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
@@ -16,30 +17,91 @@ var paused = true;
 var cursorPositionX;
 var cursorPositionY;
 
+var startWallX = 0;
+var startWallY = 0;
+var startWallX = 0;
+var startWallY = 0;
+var selectedIndex = -100;
+
+var isDrawWall = false;
+var drawArrow = false;
 document.addEventListener("keydown", KeyDownHandler);
 
 canvas.addEventListener("mousedown", GetLeftMouse, false);
 canvas.addEventListener("mouseup", LeftDeleteMouse, false);
 canvas.addEventListener("dblclick",DblClick ,false)
 
+function Test(ball, wall) {
 
+    var a = Math.sqrt((ball.x - wall.x2) ** 2 + (ball.y - wall.y2) ** 2);
+    var b = Math.sqrt((ball.x - wall.x) ** 2 + (ball.y - wall.y) ** 2);
+    var c = Math.sqrt((wall.x - wall.x2) ** 2 + (wall.y - wall.y2) ** 2);
+
+    var p = (a + b + c) / 2;
+    var s = Math.sqrt(p * (p - a) * (p - b) * (p - c))
+    return s * 2 / c;
+
+}
+
+function CollisionWalls() {
+    for (var obj1 in objArray) {
+        for (var obj2 in walls) {
+
+            if (objArray[obj1].radius >= Test(objArray[obj1], walls[obj2])) {
+
+
+                var a = Math.sqrt((objArray[obj1].x - walls[obj2].x2) ** 2 + (objArray[obj1].y - walls[obj2].y2) ** 2);
+                var b = Math.sqrt((objArray[obj1].x - walls[obj2].x) ** 2 + (objArray[obj1].y - walls[obj2].y) ** 2);
+                var c = Math.sqrt((walls[obj2].x - walls[obj2].x2) ** 2 + (walls[obj2].y - walls[obj2].y2) ** 2);
+                //alert("c = " + c.toFixed(1));
+                 
+                //alert(a.toFixed(1) + b.toFixed(1));
+                //if (a.toFixed(1) + b.toFixed(1) == c)
+                //{
+                //    alert(1);
+                //}
+                //else if (a.toFixed(1) + c.toFixed(1) == b)
+                //{
+                //    alert(2);
+                //}
+                //else if (b.toFixed(1) + c.toFixed(1) == a)
+                //{
+                //    alert(3);
+                //}
+                //var p = (a + b + c) / 2;
+                //var s = Math.sqrt(p * (p - a) * (p - b) * (p - c))
+                ////console.log(a, b, c, p, s + " s" + (s * 2 / c));
+                //console.log(s * 2 / c);
+
+                //objArray[obj1].dx = -objArray[obj1].dx
+            }
+        }
+    }
+}
 
 function DblClick() {
     if (indexElement >= 0) {
+        drawArrow = true;
         selectedItem = true;
-        idBall = objArray[indexElement].id;
+        selectedIndex = objArray[indexElement].id;
     }
 }
 
 function LeftDeleteMouse() {
-    canvas.removeEventListener("mousemove", IMoveMouse, false);
+    if (isDrawWall) {
+        isDrawWall = false;
+        canvas.removeEventListener("mousemove", DrawWall, false);
+    }
+    else {
+        canvas.removeEventListener("mousemove", IMoveMouse, false);
+    }
 }
 
 function IMoveMouse() {
     if (paused) {
         if (indexElement >= 0) {
-            objArray[indexElement].x = cursorPositionX - differentWindows;
-            objArray[indexElement].y = cursorPositionY + differentWindows;
+            objArray[indexElement].x = cursorPositionX;
+            objArray[indexElement].y = cursorPositionY;
         }
        
     }
@@ -60,32 +122,42 @@ function GetIndexElement() {
 }
 
 function CheckCatchItem() {
-    if (catchHorizontWall == true) {
-        walls[indexNewItem].x = cursorPositionX;
-        walls[indexNewItem].y = cursorPositionY
-    }
-    else if (catchVerticWall == true)
+ 
+    if (catchVerticWall == true)
     {
         walls[indexNewItem].x = cursorPositionX;
         walls[indexNewItem].y = cursorPositionY
     }
     else if (catchBall == true) {
-            objArray[indexNewItem].x = cursorPositionX;
-            objArray[indexNewItem].y = cursorPositionY;
+        objArray[indexNewItem].x = cursorPositionX-differentWindows;
+        objArray[indexNewItem].y = cursorPositionY + differentWindows;
      }
 }
 
+function DrawWall() {
+    walls[walls.length - 1].x2 = cursorPositionX - differentWindows-5;
+    walls[walls.length - 1].y2 = cursorPositionY + differentWindows;
+
+}
+
 function GetLeftMouse(event) {
+    GetIndexElement();
     if (selectedItem) {
-        idBall = -1;
+        drawArrow = false;
         selectedItem = false;
     }
-    if (catchHorizontWall || catchVerticWall || catchBall) {
+    if (isDrawWall) {
+        startWallX = cursorPositionX;
+        startWallY = cursorPositionY;
+        var tmp = new Wall(startWallX, startWallY, cursorPositionX, cursorPositionY)
+        walls[walls.length] = tmp;
+        canvas.addEventListener("mousemove", DrawWall, false);
+    }
+    if (catchVerticWall || catchBall) {
         catchHorizontWall = false;
         catchVerticWall = false;
         catchBall = false;
     }
-
     else {
         canvas.addEventListener("mousemove", IMoveMouse, false);
         indexElement = GetIndexElement();
@@ -99,7 +171,10 @@ function ClearCanvas() {
 function KeyDownHandler(event) {
     if (event.keyCode == 67) { // c
         var temp = new Ball(800, 400, randomRadius());
-        temp.id = idBall++;
+        alert(idBall);
+
+        temp.id = idBall;
+        ++idBall;
         objArray[objArray.length] = temp;
        
     } else if (event.keyCode == 32) {//Space
@@ -204,21 +279,20 @@ function DrawWalls() {
 }
 
 document.onmousemove = function (e) {
-    cursorPositionX = e.pageX;
-    cursorPositionY = e.pageY;
+    cursorPositionX = e.pageX - differentWindows;
+    cursorPositionY = e.pageY + differentWindows;
 }
+
 
 function draw() {
     ClearCanvas();
     CanvasBackground();
     CheckCatchItem();
-    //isHave(438,200);
-
-   
     if (!paused) 
         MoveObjects();
     DrawAll();
     CheckAllCollision();
+    CollisionWalls();
     requestAnimationFrame(draw);
 }
 
@@ -245,7 +319,15 @@ var temp = new Ball(700, 400, randomRadius());
 temp.id = idBall;
 ++idBall;
 objArray[objArray.length] = temp;
-var temp = new Ball(600, 400, randomRadius());
+var temp = new Ball(600, 500, randomRadius());
+temp.id = idBall;
+++idBall;
+objArray[objArray.length] = temp;
+var temp = new Ball(700, 500, randomRadius());
+temp.id = idBall;
+++idBall;
+objArray[objArray.length] = temp;
+var temp = new Ball(800, 500, randomRadius());
 temp.id = idBall;
 ++idBall;
 objArray[objArray.length] = temp;

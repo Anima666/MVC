@@ -60,8 +60,8 @@
 }
 .horizontWall {
     text-align: center;
-    height: 20px;
-    width: 80%;
+    height: 80px;
+    width: 20%;
     background: black;
 }
 
@@ -260,12 +260,12 @@ section.footer {
 /* СКРЫТЫЙ БЛОК */
 #hidden_panel_left {
     position: fixed; /* положение */
-    top: 85px; /* отступ сверху */
+    top: 120px; /* отступ сверху */
     left: -120px; /* отступ слева */
     background: #39464e; /* цвет фона */
     color: #000; /* цвет текста */
     width: 100px; /* ширина блока */
-    height: 350px; /* высота блока */
+    height: 200px; /* высота блока */
     padding: 10px; /* отступы от границ внутри блока */
     text-align: left; /* выравнивание текста */
     -webkit-transition-duration: 0.3s; /* анимационное выдвижение для всех браузеров*/
@@ -286,7 +286,22 @@ section.footer {
     #panel_left:hover #hidden_panel_left {
         left: 0; /* отступ слева */
     }
-    /*Finish panel*/
+
+
+.horizontWall {
+    text-align: center;
+    height: 80px;
+    width: 20%;
+    background: black;
+}
+
+.newBall {
+    border-radius: 50px 50px 50px 50px;
+    height: 80px;
+    width: 80%;
+    background: yellow;
+}
+/*Finish left panel*/
 
 
 .outLineButton {
