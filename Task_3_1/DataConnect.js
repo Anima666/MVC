@@ -1,4 +1,4 @@
-﻿function DataConnection() {
+﻿function GetDataStart() {
 
     $.ajax({
         type: "POST",
@@ -11,29 +11,47 @@
     });
 }
 
+
 function successFunc(data, status) {
-    alert(data);
+    objArray = [];
+    ParseJsonStrt(data);
+
 }
 
 function errorFunc(errorData) {
     alert('Ошибка' + errorData.responseText);
 }
 
-//function GetDataConnection() {
-//    $.ajax({
-//        //url: '@Url.Action("AddIngrid", "Home")',
-//        url: '@Url.Action("AddIngrid", "Home")',
-//        type: 'POST',
+function PostDataStart(i) {
 
-//        contentType: "application/json; charset=utf-8",
-//        dataType: 'json',
-//        traditional: true,
+    var x = (objArray[i].x).toFixed(1);
+    var y = (objArray[i].y).toFixed(1);
+    var str = objArray[i].id + " " +
+        objArray[i].radius + " " +
+        x + " " +
+        y + " " +
+        objArray[i].dx + " " +
+        objArray[i].dy;
+    console.log(str);
+    $.post('/Home/AddIngrid', {parameters: str});
+}
 
-//        data: {
-//            id: 1
-//        },
-//        success: successFunc,
-//        error: errorFunc
-//    });
+function ParseJsonStrt(str) {
 
-//}
+
+    for (var i = 0; i < str.length-1; ++i)
+    {
+        console.log("Hello");
+        var a = str[i].split(' ');
+        var x = parseInt(a[2]);
+        var y = parseInt(a[3]);
+        var radius = parseInt(a[1]);
+        var tmp = new Ball(x, y, radius);
+        tmp.id = a[0];
+        tmp.dx = a[4];
+        tmp.dy = a[5];
+        tmp.color = "red";
+        objArray[objArray.length] = tmp;
+
+    }
+}

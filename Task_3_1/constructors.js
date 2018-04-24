@@ -1,14 +1,15 @@
 function Ball(x, y, radius) {
+    //obj Array   radis koordinatX koorY dx dy color id
 
-
+    //Walls x y x2 y2
     this.radius = radius;
     this.id = null;
-    this.dx = 1;
-    this.dy =2;
+    this.dx = 0;
+    this.dy =0;
     this.mass = this.radius * this.radius * this.radius;
     this.x = x;
     this.y = y;
-    this.color = randomColor();
+    this.color = "black";
     this.draw = function () {
         ctx.beginPath();
         ctx.arc(Math.round(this.x), Math.round(this.y), this.radius, 0, 2 * Math.PI);

@@ -9,37 +9,24 @@ namespace Task_3_1.Controllers
 {
     public class HomeController : Controller
     {
-        string tmp = "";
+        static string tmp = "";
+
+        static List<string> parametersBallsList = new List<string>();
         [HttpPost]
         public JsonResult BallData()
         {
-            DataBall dataBall = new DataBall();
 
-            dataBall.radius = 30;
-            dataBall.id = 0;
-            dataBall.dx = 1;
-            dataBall.dy = 2;
-            dataBall.mass = dataBall.radius * 3;
-            dataBall.x = 500;
-            dataBall.y = 500;
+            
+            return Json(parametersBallsList);
 
-            return Json(
-                dataBall.radius + " " +
-                dataBall.id + " " +
-                dataBall.dx + " " +
-                dataBall.dy + " " +
-                dataBall.mass + " " +
-                dataBall.x + " " +
-                dataBall.y + " " + 
-                tmp
-                );
         }
 
         [HttpPost]
-        public ActionResult AddIngrid(int id)
+        public ActionResult AddIngrid(string parameters)
         {
-            tmp += id;
-            return PartialView();
+            parametersBallsList.Add(parameters);
+            
+            return View();
         }
 
         public ActionResult Index()

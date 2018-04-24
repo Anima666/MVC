@@ -38,6 +38,7 @@ canvas.addEventListener("dblclick",DblClick ,false)
 function DblClick() {
     indexElement = GetIndexElement();
     if (indexElement >= 0) {
+        console.log(123);
         drawArrow = true;
         selectedItem = true;
         selectedIndex = objArray[indexElement].id;
@@ -302,11 +303,14 @@ document.onmousemove = function (e) {
 function draw() {
     if (save == true) {
         save = false;
-        DataConnection();
+        for (var i in objArray) {
+            PostDataStart(i);
+
+        }
     }
     if (recoveryData == true) {
         recoveryData = false;
-        GetDataConnection();
+        GetDataStart();
     }
     ClearCanvas();
     CanvasBackground();
