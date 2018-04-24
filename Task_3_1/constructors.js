@@ -28,13 +28,11 @@ function Ball(x, y, radius) {
 
             ctx.moveTo(this.x, this.y);
             ctx.lineTo(cursorPositionX, cursorPositionY);
-
             var angle = (Math.atan2(cursorPositionY - this.y, cursorPositionX - this.x))
             ctx.lineTo(cursorPositionX - 10 * Math.cos(angle - Math.PI / 6), cursorPositionY - 10 * Math.sin(angle - Math.PI / 6));
             ctx.moveTo(this.x, this.y);
             ctx.lineTo(cursorPositionX, cursorPositionY);
             ctx.lineTo(cursorPositionX - 10 * Math.cos(angle + Math.PI / 6), cursorPositionY - 10 * Math.sin(angle + Math.PI / 6));
-
             ctx.stroke();
         }
         else if (indexElement == this.id) {

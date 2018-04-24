@@ -65,6 +65,7 @@ function LeftDeleteMouse() {
 
 function DrawNewBall() {
     var tmp = new Ball(cursorPositionX, cursorPositionY, randomRadius());
+    console.log(idBall);
     tmp.id = idBall;
     objArray[objArray.length] = tmp;
     ++idBall
@@ -107,18 +108,43 @@ function GetIndexElement() {
     return -1;
 }
 
-function CollisionWall() {
-    for (var j in objArray) {
-        var dx = (objArray[j].x + objArray[j].radius).toFixed(0);
-        var dy = (objArray[j].y + objArray[j].radius).toFixed(0);
-        for (var i = 0; i <= walls.length - 1; ++i) {
-            var x0 = walls[i].x;
-            var y0 = walls[i].y;
-            var x = walls[i].x2;
-            var y = walls[i].y2;
-            if (((dy - y0) / (y - y0)).toFixed(1) == ((dx - x0) / (x - x0)).toFixed(1)) {
-                alert(dx + " " + dy + "   " + x0 + " " + y0 + "   " + x + " " + y);
 
+function Test(ball, wall) {
+
+   var a = Math.sqrt((ball.x - wall.x2) ** 2 + (ball.y - wall.y2) ** 2);
+   var b = Math.sqrt((ball.x - wall.x) ** 2 + (ball.y - wall.y) ** 2);
+    var c = Math.sqrt((wall.x - wall.x2) ** 2 + (wall.y - wall.y2) ** 2);
+   var p = (a + b + c) / 2;
+   var s = Math.sqrt(p * (p - a) * (p - b) * (p - c))
+    return s * 2 / c;
+}
+
+function CollisionWalls() {
+    for (var obj1 in objArray) {
+        for (var obj2 in walls) {
+            if (objArray[obj1].radius >= Test(objArray[obj1], walls[obj2])) {
+                var a = Math.sqrt((objArray[obj1].x - walls[obj2].x2) ** 2 + (objArray[obj1].y - walls[obj2].y2) ** 2);
+                var b = Math.sqrt((objArray[obj1].x - walls[obj2].x) ** 2 + (objArray[obj1].y - walls[obj2].y) ** 2);
+                var c = Math.sqrt((walls[obj2].x - walls[obj2].x2) ** 2 + (walls[obj2].y - walls[obj2].y2) ** 2);
+            }
+        }
+    }
+}
+
+function CollisionWall() {
+    if (objArray != null) {
+        for (var j in objArray) {
+            var dx = (objArray[j].x + objArray[j].radius).toFixed(0);
+            var dy = (objArray[j].y + objArray[j].radius).toFixed(0);
+            for (var i = 0; i <= walls.length - 1; ++i) {
+                var x0 = walls[i].x;
+                var y0 = walls[i].y;
+                var x = walls[i].x2;
+                var y = walls[i].y2;
+                if (((dy - y0) / (y - y0)).toFixed(1) == ((dx - x0) / (x - x0)).toFixed(1)) {
+                    alert(dx + " " + dy + "   " + x0 + " " + y0 + "   " + x + " " + y);
+
+                }
             }
         }
     }
@@ -296,10 +322,14 @@ document.onmousemove = function (e) {
 }
 
 function Save() {
-    JsonClearSave();
-        for (var i in objArray) {
-            PostDataStart(i);
-        }
+    ClearSaveWall();
+    ClearSaveBall();
+    for (var i in objArray) {
+        PostDataStart(i);
+    }
+    for (var i in walls) {
+        PostWalls(i);
+    }
 }
 
 
@@ -307,18 +337,19 @@ function draw() {
     if (save == true) {
         Save();
         save = false;
-        //setInterval(AutoSave, 3000);
     }
     if (recoveryData == true) {
         recoveryData = false;
         GetDataStart();
+        GetDataWalls();
     }
     ClearCanvas();
     CanvasBackground();
     CheckCatchItem();
     if (!paused) {
         MoveObjects();
-        CollisionWall();
+        CollisionWalls();
+        //CollisionWall();
     }
     DrawAll();
     CheckAllCollision();

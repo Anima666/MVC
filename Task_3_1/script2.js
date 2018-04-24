@@ -57,6 +57,7 @@ function Start() {
     var _Pause_buttom = document.getElementById("Pause_buttom");
     var _BlueButton = document.getElementById("BlueButton");
     var _GreenButton = document.getElementById("GreenButton");
+    console.log("count "+ objArray.length);
     if (_start.value == " ") {
         _start.className ="Pause_buttom";
         DefaultState();
