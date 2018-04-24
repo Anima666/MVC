@@ -19,21 +19,21 @@ function errorFunc(errorData) {
     alert('Ошибка' + errorData.responseText);
 }
 
-function GetDataConnection() {
-    $.ajax({
-        //url: '@Url.Action("AddIngrid", "Home")',
-        url: '@Url.Action("AddIngrid", "Home")',
-        type: 'POST',
+//function GetDataConnection() {
+//    $.ajax({
+//        //url: '@Url.Action("AddIngrid", "Home")',
+//        url: '@Url.Action("AddIngrid", "Home")',
+//        type: 'POST',
 
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        traditional: true,
+//        contentType: "application/json; charset=utf-8",
+//        dataType: 'json',
+//        traditional: true,
 
-        data: {
-            id: 1
-        },
-        success: successFunc,
-        error: errorFunc
-    });
+//        data: {
+//            id: 1
+//        },
+//        success: successFunc,
+//        error: errorFunc
+//    });
 
-}
+//}

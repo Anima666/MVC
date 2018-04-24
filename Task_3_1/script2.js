@@ -44,6 +44,8 @@ function SetColorGreen() {
 }
 
 function DefaultState() {
+    isDrawBall = false;
+    isDrawWall = false;
     indexElement = -1;
     paused = false;
     selectedItem = false;
@@ -75,17 +77,21 @@ function Start() {
 }
 
 function NewBall() {
-    if (paused && !catchBall && !catchVerticWall && !catchHorizontWall) {
+    isDrawWall = false;
+    isDrawBall = true;
+    /* if (paused && !catchBall && !catchVerticWall && !catchHorizontWall) {
         catchBall = true;
         var temp = new Ball(800, 400, randomRadius());
         temp.id = idBall;
         idBall += 1;
         objArray[objArray.length] = temp;
         indexNewItem = objArray.length - 1;
-    }
+    }*/
 }
 
 function NewWallHorizont() {
+    isDrawBall = false;
+
     if (paused && !catchBall && !catchVerticWall && !catchHorizontWall) {
         isDrawWall = true;
     }
