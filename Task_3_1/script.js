@@ -38,7 +38,6 @@ canvas.addEventListener("dblclick",DblClick ,false)
 function DblClick() {
     indexElement = GetIndexElement();
     if (indexElement >= 0) {
-        console.log(123);
         drawArrow = true;
         selectedItem = true;
         selectedIndex = objArray[indexElement].id;
@@ -112,8 +111,6 @@ function CollisionWall() {
     for (var j in objArray) {
         var dx = (objArray[j].x + objArray[j].radius).toFixed(0);
         var dy = (objArray[j].y + objArray[j].radius).toFixed(0);
-
-        console.log(dx + " " + dy);
         for (var i = 0; i <= walls.length - 1; ++i) {
             var x0 = walls[i].x;
             var y0 = walls[i].y;
@@ -298,15 +295,19 @@ document.onmousemove = function (e) {
     cursorPositionY = e.pageY + differentWindows;
 }
 
+function Save() {
+    JsonClearSave();
+        for (var i in objArray) {
+            PostDataStart(i);
+        }
+}
 
 
 function draw() {
     if (save == true) {
+        Save();
         save = false;
-        for (var i in objArray) {
-            PostDataStart(i);
-
-        }
+        //setInterval(AutoSave, 3000);
     }
     if (recoveryData == true) {
         recoveryData = false;

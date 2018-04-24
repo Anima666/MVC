@@ -9,23 +9,27 @@ namespace Task_3_1.Controllers
 {
     public class HomeController : Controller
     {
-        static string tmp = "";
-
         static List<string> parametersBallsList = new List<string>();
+
+
+
+        [HttpPost]
+        public JsonResult ClearListParameters()
+        {
+            
+            parametersBallsList.Clear();
+            return Json("");
+        }
         [HttpPost]
         public JsonResult BallData()
-        {
-
-            
+        { 
             return Json(parametersBallsList);
-
         }
 
         [HttpPost]
         public ActionResult AddIngrid(string parameters)
         {
             parametersBallsList.Add(parameters);
-            
             return View();
         }
 
