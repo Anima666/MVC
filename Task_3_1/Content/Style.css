@@ -36,8 +36,8 @@
 .top-button {
     display: block;
     position: absolute;
-    top: 100px;
-    background: transparent;
+    top: 70px;
+    background: green;
     width: 50px;
     height: 30px;
     border-radius: 10px;

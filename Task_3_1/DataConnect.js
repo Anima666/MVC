@@ -21,17 +21,19 @@ function errorFunc(errorData) {
 
 function GetDataConnection() {
     $.ajax({
-        type: "POST",
-        url: "@(Url.Action('Index', 'Controller'))",
-        data: { indexElement: indexElement },
+        //url: '@Url.Action("AddIngrid", "Home")',
+        url: '@Url.Action("AddIngrid", "Home")',
+        type: 'POST',
+
         contentType: "application/json; charset=utf-8",
-        cache: false,
-        async: true,
-        success: function (result) {
-            alert("succes");
+        dataType: 'json',
+        traditional: true,
+
+        data: {
+            id: 1
         },
-        error: function () {
-            alert("False");
-        }
+        success: successFunc,
+        error: errorFunc
     });
+
 }

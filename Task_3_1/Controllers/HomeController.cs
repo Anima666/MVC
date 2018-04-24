@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 
 namespace Task_3_1.Controllers
 {
     public class HomeController : Controller
     {
+        string tmp = "";
         [HttpPost]
         public JsonResult BallData()
         {
             DataBall dataBall = new DataBall();
+
             dataBall.radius = 30;
             dataBall.id = 0;
             dataBall.dx = 1;
@@ -21,20 +24,27 @@ namespace Task_3_1.Controllers
             dataBall.y = 500;
 
             return Json(
-                dataBall.radius + " " + 
-                dataBall.id + " " + 
-                dataBall.dx + " " + 
-                dataBall.dy + " " + 
+                dataBall.radius + " " +
+                dataBall.id + " " +
+                dataBall.dx + " " +
+                dataBall.dy + " " +
                 dataBall.mass + " " +
                 dataBall.x + " " +
-                dataBall.y
+                dataBall.y + " " + 
+                tmp
                 );
         }
 
-        
+        [HttpPost]
+        public ActionResult AddIngrid(int id)
+        {
+            tmp += id;
+            return PartialView();
+        }
+
         public ActionResult Index()
         {
-            return View("SUcces");
+            return View();
         }
 
         public ActionResult About()

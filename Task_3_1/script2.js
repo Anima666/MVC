@@ -80,9 +80,6 @@ function NewBall() {
         var temp = new Ball(800, 400, randomRadius());
         temp.id = idBall;
         idBall += 1;
-
-
-
         objArray[objArray.length] = temp;
         indexNewItem = objArray.length - 1;
     }
@@ -121,9 +118,6 @@ function DeleteBall() {
         objArray[indexElement].dx = null;
         objArray[indexElement].dy = null;
         selectedItem = null;
-
-        //idBall;
-
     }
 
 }
