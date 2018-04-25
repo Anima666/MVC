@@ -115,17 +115,26 @@ function Test(ball, wall) {
    var b = Math.sqrt((ball.x - wall.x) ** 2 + (ball.y - wall.y) ** 2);
     var c = Math.sqrt((wall.x - wall.x2) ** 2 + (wall.y - wall.y2) ** 2);
    var p = (a + b + c) / 2;
-   var s = Math.sqrt(p * (p - a) * (p - b) * (p - c))
-    return s * 2 / c;
+    var s = Math.sqrt(p * (p - a) * (p - b) * (p - c))
+    
+    var result = (s * 2 / c).toFixed(0);
+   return result;
 }
 
 function CollisionWalls() {
     for (var obj1 in objArray) {
         for (var obj2 in walls) {
             if (objArray[obj1].radius >= Test(objArray[obj1], walls[obj2])) {
-                var a = Math.sqrt((objArray[obj1].x - walls[obj2].x2) ** 2 + (objArray[obj1].y - walls[obj2].y2) ** 2);
-                var b = Math.sqrt((objArray[obj1].x - walls[obj2].x) ** 2 + (objArray[obj1].y - walls[obj2].y) ** 2);
-                var c = Math.sqrt((walls[obj2].x - walls[obj2].x2) ** 2 + (walls[obj2].y - walls[obj2].y2) ** 2);
+                var a = (Math.sqrt((objArray[obj1].x - walls[obj2].x2) ** 2 + (objArray[obj1].y - walls[obj2].y2) ** 2)).toFixed(0);
+                var b = (Math.sqrt((objArray[obj1].x - walls[obj2].x) ** 2 + (objArray[obj1].y - walls[obj2].y) ** 2)).toFixed(0);
+                var c = (Math.sqrt((walls[obj2].x - walls[obj2].x2) ** 2 + (walls[obj2].y - walls[obj2].y2) ** 2)).toFixed(0);
+                var summAB = parseInt(a) + parseInt(b);
+                if (summAB-40 <= c) {
+                    //alert(summAB + " " + c);
+
+                    objArray[obj1].dx *= -1;
+                    objArray[obj1].dy *= -1.5;
+                }
             }
         }
     }
@@ -276,10 +285,6 @@ function BallCollision() {
         WallCollision(objArray[obj1]);
     }
 }
-
-
-
-
 
 function StaticCollision() {
     for (var obj1 in objArray) {
