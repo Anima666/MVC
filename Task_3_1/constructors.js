@@ -78,7 +78,7 @@ function Wall(x,y,x2,y2) {
     this.draw = function () {
         ctx.beginPath();
         ctx.lineWidth = "7";
-        ctx.strokeStyle = "black";
+        ctx.strokeStyle = "green";
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(this.x2, this.y2);
         ctx.stroke();

@@ -16,18 +16,21 @@ var idBall = 0;
 var save = false;
 var recoveryData = false;
 var paused = true;
-
 var cursorPositionX;
 var cursorPositionY;
 var drawNewBall = false;
-var startWallX = 0;
-var startWallY = 0;
+
 
 var selectedIndex = -100;
-var indexWallCatch = -100;
+var indexWallCatch = 0;
 var isDrawWall = false;
 var drawArrow = false;
 var isDrawBall = true;
+
+var CoordinatX;
+var CoordinatY;
+var CoordinatX2;
+var CoordinatY2;
 
 document.addEventListener("keydown", KeyDownHandler);
 
@@ -45,27 +48,30 @@ function DblClick() {
 }
 
 function LeftDeleteMouse() {
+    canvas.removeEventListener("mousemove", MoveWall, false);
+    canvas.removeEventListener("mousemove", MoveWallX, false);
+    canvas.removeEventListener("mousemove", MoveWallXY, false);
     if (drawNewBall == true) {
         drawNewBall = false;
         selectedItem = false;
         drawArrow = false;
     }
-
     if (isDrawWall) {
-        //isDrawWall = false;
         indexElement = -100;
+        if (Math.abs(walls[walls.length - 1].x2 - walls[walls.length - 1].x) <= 25 && Math.abs(walls[walls.length - 1].y2 - walls[walls.length-1].y)<=25) {
+            walls.pop();
+        }
         canvas.removeEventListener("mousemove", DrawWall, false);
         canvas.removeEventListener("mousemove", IMoveMouse, false);
     }
     else {
-
         canvas.removeEventListener("mousemove", IMoveMouse, false);
     }
 }
 
+
 function DrawNewBall() {
     var tmp = new Ball(cursorPositionX, cursorPositionY, randomRadius());
-    console.log(idBall);
     tmp.id = idBall;
     objArray[objArray.length] = tmp;
     ++idBall
@@ -82,16 +88,79 @@ function IMoveMouse() {
             objArray[indexElement].y = cursorPositionY;
         }
         else if (indexElement < 0 && drawNewBall == false && isDrawWall == false && selectedItem == false && isDrawBall) {
-            //alert(isDrawBall);
             drawNewBall = true;
             DrawNewBall();
-
-        }
-        else if (indexWallCatch >= 0 && selectedItem == false ) {
-           //Id Wall
-            
         }
     }
+}
+
+function GetIndexWall() {
+    var dx = cursorPositionX;
+    var dy = cursorPositionY;
+    for (var i = 0; i <= walls.length - 1; ++i) {
+        var x0 = walls[i].x;
+        var y0 = walls[i].y;
+        var x = walls[i].x2;
+        var y = walls[i].y2;
+        if (((dy - y0) / (y - y0)).toFixed(0) == ((dx - x0) / (x - x0)).toFixed(0)) {
+            var a = (Math.sqrt((dx - walls[i].x2) ** 2 + (dy - walls[i].y2) ** 2)).toFixed(0);
+            var b = (Math.sqrt((dx - walls[i].x) ** 2 + (dy - walls[i].y) ** 2)).toFixed(0);
+            var c = (Math.sqrt((walls[i].x - walls[i].x2) ** 2 + (walls[i].y - walls[i].y2) ** 2)).toFixed(0);
+            console.log("c = " + c);
+            var drobb = (c / 3).toFixed(0);
+            if (parseInt(a) + parseInt(b) - 40 <= c && catchBall == false) {
+                indexWallCatch = i;
+                isDrawBall = false;
+                isDrawWall = false;
+                CoordinatX = walls[indexWallCatch].x - dx;
+                CoordinatY = walls[indexWallCatch].y - dy;
+                CoordinatX2 = dx - walls[indexWallCatch].x2;
+                CoordinatY2 = dy - walls[indexWallCatch].y2;
+
+                var drob = parseInt(drobb);
+                var LineX = (Math.sqrt((walls[i].x - dx) ** 2 + (walls[i].y - dy) ** 2)).toFixed(0);
+                var LineY = (Math.sqrt((walls[i].x2 - dx) ** 2 + (walls[i].y2 - dy) ** 2)).toFixed(0);
+                if (LineX > drob && LineY < drob) {
+                    canvas.addEventListener("mousemove", MoveWall, false);
+                }else if (LineX < drob && LineY > drob) {
+                    canvas.addEventListener("mousemove", MoveWallX, false);
+                } else if (parseInt(LineX) > parseInt(drob) && parseInt(LineY) > parseInt(drob)) {
+
+                    canvas.addEventListener("mousemove", MoveWallXY, false);
+                }
+                else {
+                    console.log("Ne opredelenno");
+                }
+            }
+        }
+    }
+}
+
+function MoveWallXY() {
+    var dx = cursorPositionX;
+    var dy = cursorPositionY;
+    walls[indexWallCatch].x = dx + parseInt(CoordinatX);
+    walls[indexWallCatch].y = dy + parseInt(CoordinatY);
+    walls[indexWallCatch].x2 = dx - parseInt(CoordinatX2);
+    walls[indexWallCatch].y2 = dy - parseInt(CoordinatY2);
+    console.log(walls[indexWallCatch].x + " " + walls[indexWallCatch].y + " " + walls[indexWallCatch].x2 + " " + walls[indexWallCatch].y2);
+}
+
+function MoveWallX() {
+    walls[indexWallCatch].x = cursorPositionX;
+    walls[indexWallCatch].y = cursorPositionY;
+    isDrawWall = true;
+}
+
+function MoveWall() {
+    DrawWall();
+    isDrawWall = true;
+}
+
+function DrawWall() {
+    walls[indexWallCatch].x2 = cursorPositionX ;
+    walls[indexWallCatch].y2 = cursorPositionY;
+    isDrawWall = true;
 }
 
 function GetIndexElement() {
@@ -108,16 +177,14 @@ function GetIndexElement() {
     return -1;
 }
 
-
 function Test(ball, wall) {
-
    var a = Math.sqrt((ball.x - wall.x2) ** 2 + (ball.y - wall.y2) ** 2);
    var b = Math.sqrt((ball.x - wall.x) ** 2 + (ball.y - wall.y) ** 2);
-    var c = Math.sqrt((wall.x - wall.x2) ** 2 + (wall.y - wall.y2) ** 2);
+   var c = Math.sqrt((wall.x - wall.x2) ** 2 + (wall.y - wall.y2) ** 2);
    var p = (a + b + c) / 2;
-    var s = Math.sqrt(p * (p - a) * (p - b) * (p - c))
+   var s = Math.sqrt(p * (p - a) * (p - b) * (p - c))
     
-    var result = (s * 2 / c).toFixed(0);
+   var result = (s * 2 / c).toFixed(0);
    return result;
 }
 
@@ -133,7 +200,7 @@ function CollisionWalls() {
                     //alert(summAB + " " + c);
 
                     objArray[obj1].dx *= -1;
-                    objArray[obj1].dy *= -1.5;
+                    objArray[obj1].dy *= -1;
                 }
             }
         }
@@ -159,8 +226,6 @@ function CollisionWall() {
     }
 }
 
-
-
 function CheckCatchItem() {
  
     if (catchBall == true) {
@@ -169,43 +234,32 @@ function CheckCatchItem() {
      }
 }
 
-function DrawWall() {
-    walls[walls.length - 1].x2 = cursorPositionX ;
-    walls[walls.length - 1].y2 = cursorPositionY ;
-}
-
 function GetLeftMouse(event) {
     indexElement = GetIndexElement();
+    GetIndexWall();
     if (selectedItem) {
-            
         drawArrow = false;
         selectedItem = false;
     }
     if (isDrawWall && indexElement <0) {
         selectedItem = true
-        startWallX = cursorPositionX;
-        startWallY = cursorPositionY;
-        var tmp = new Wall(startWallX, startWallY, cursorPositionX, cursorPositionY)
+
+        var tmp = new Wall(cursorPositionX, cursorPositionY, cursorPositionX, cursorPositionY)
         walls[walls.length] = tmp;
+        indexWallCatch = walls.length - 1;
         canvas.addEventListener("mousemove", DrawWall, false);
     }
     if (catchVerticWall || catchBall) {
-        //catchVerticWall = false;
         catchBall = false;
     }
     else {
         canvas.addEventListener("mousemove", IMoveMouse, false);
-        indexElement = GetIndexElement();
-
-
     }
 }
 
 function ClearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
-
-
 
 function KeyDownHandler(event) {
     if (event.keyCode == 67) { // c
