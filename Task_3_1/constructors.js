@@ -1,7 +1,4 @@
 function Ball(x, y, radius) {
-    //obj Array   radis koordinatX koorY dx dy color id
-
-    //Walls x y x2 y2
     this.radius = radius;
     this.id = null;
     this.dx = 0;
@@ -67,18 +64,16 @@ function Ball(x, y, radius) {
     }
 }
 
-
-
 function Wall(x,y,x2,y2) {
     this.x = x;
     this.y = y;
     this.x2 = x2;
     this.y2 = y2;
-
+    this.lineSize = "7"
     this.draw = function () {
         ctx.beginPath();
-        ctx.lineWidth = "7";
-        ctx.strokeStyle = "green";
+        ctx.lineWidth = this.lineSize;
+        ctx.strokeStyle = "red";
         ctx.moveTo(this.x, this.y);
         ctx.lineTo(this.x2, this.y2);
         ctx.stroke();

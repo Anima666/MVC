@@ -10,8 +10,6 @@
     });
 }
 
-
-
 function ClearSaveWall() {
     $.ajax({
         type: "POST",
@@ -58,7 +56,6 @@ function PostDataStart(i) {
         y + " " +
         objArray[i].dx + " " +
         objArray[i].dy;
-    console.log(objArray[i].id);
     $.post('/Home/AddIngrid', {parameters: str});
 }
 
@@ -81,13 +78,11 @@ function ParseJsonStrt(str) {
         var x = parseInt(a[2]);
         var y = parseInt(a[3]);
         var radius = parseInt(a[1]);
-        console.log(a[0]);
-
         var tmp = new Ball(x, y, radius);
         tmp.id = a[0];
         tmp.dx = a[4];
         tmp.dy = a[5];
-        tmp.color = "red";
+        tmp.color = "black";
         objArray[objArray.length] = tmp;
         ++idBall;
     }
@@ -115,7 +110,6 @@ function ParseWalls(str) {
         var tmp = new Wall(x, y, x2, y2);
         walls[walls.length] = tmp;
     }
-
 }
 
 function successF(data, status) {

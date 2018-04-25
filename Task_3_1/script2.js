@@ -4,7 +4,6 @@ var bigSizeBall = 50;
 var indexNewItem;
 var catchBall = false;
 var catchVerticWall = false;
-var catchHorizontWall = false;
 var countDeleteobj = 0;
 
 function randomColor() {
@@ -14,7 +13,6 @@ function randomColor() {
     rc = "rgb(" + red + ", " + green + ", " + blue + ")";
     return rc;
 }
-
 
 function ReturnBlack() {
     red = 200;
@@ -28,12 +26,14 @@ function SetColorRed() {
     if (indexElement != null && paused) {
         objArray[indexElement].color = "red";
     }
+    else if (indexWallCatch >= 0) {
+        walls[indexWallCatch].lineSize = "10";
+    }
 }
 
 function SetColorBlue() {
     if (indexElement != null && paused ) {
         objArray[indexElement].color = "blue";
-
     }
 }
 
@@ -80,28 +80,22 @@ function Start() {
 function NewBall() {
     isDrawWall = false;
     isDrawBall = true;
-    /* if (paused && !catchBall && !catchVerticWall && !catchHorizontWall) {
-        catchBall = true;
-        var temp = new Ball(800, 400, randomRadius());
-        temp.id = idBall;
-        idBall += 1;
-        objArray[objArray.length] = temp;
-        indexNewItem = objArray.length - 1;
-    }*/
 }
 
 function NewWallHorizont() {
     isDrawBall = false;
 
-    if (paused && !catchBall && !catchVerticWall && !catchHorizontWall) {
+    if (paused && !catchBall && !catchVerticWall) {
         isDrawWall = true;
     }
 }
 
-
 function LargeSizeBall() {
     if (indexElement >= 0 && paused) {
         objArray[indexElement].radius = bigSizeBall;
+    }
+    else if (indexWallCatch >= 0) {
+        walls[indexWallCatch].lineSize = "10";
     }
 }
 
@@ -109,11 +103,17 @@ function MiddleSizeBall() {
     if (indexElement >= 0 && paused) {
         objArray[indexElement].radius = middleSizeBall;
     }
+    else if (indexWallCatch >= 0) {
+        walls[indexWallCatch].lineSize = "7";
+    }
 }
 
 function SmallSizeBall() {
     if (indexElement >= 0 && paused) {
         objArray[indexElement].radius = smallSizeBall;
+    }
+    else if (indexWallCatch >= 0) {
+        walls[indexWallCatch].lineSize = "5";
     }
 }
 
@@ -125,6 +125,12 @@ function DeleteBall() {
         objArray[indexElement].dx = null;
         objArray[indexElement].dy = null;
         selectedItem = null;
+    }
+    else if (indexWallCatch>=0) {
+        walls[indexWallCatch].x = null;
+        walls[indexWallCatch].y = null;
+        walls[indexWallCatch].x2 = null;
+        walls[indexWallCatch].y2 = null;
     }
 
 }
@@ -138,7 +144,7 @@ function randomY() {
 }
 
 function randomRadius() {
-        return smallSizeBall;
+    return smallSizeBall;
  }
 
 function randomDx() {
@@ -158,4 +164,3 @@ function distanceNextFrame(a, b) {
 function distance(a, b) {
     return Math.sqrt((a.x - b.x)**2 + (a.y - b.y)**2);
 }
-
